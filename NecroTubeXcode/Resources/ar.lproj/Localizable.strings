@@ -1,0 +1,121 @@
+/* General */
+"Settings" = "الإعدادات";
+"SETTINGS" = "الإعدادات";
+"APP LANGUAGE" = "لغة التطبيق";
+"LEXICON LANGUAGE" = "لغة المعجم";
+"VIEW SESSION HISTORY" = "عرض سجل الجلسات";
+"RESTORE MY PURCHASES" = "استعادة المشتريات";
+"Purchases restored." = "تمت استعادة المشتريات.";
+"CUSTOM LEXICON" = "معجم مخصص";
+"VIEW MY WORDS" = "عرض كلماتي";
+"ADD WORDS" = "إضافة كلمات";
+"Custom Lexicon" = "معجم مخصص";
+"My Words" = "كلماتي";
+"Add up to 100 words or phrases separated by commas or line breaks." = "يمكن إضافة ما يصل إلى ١٠٠ كلمة أو عبارة مفصولة بفواصل أو أسطر جديدة";
+"ADD" = "إضافة";
+"CLOSE" = "إغلاق";
+"Words added." = "تمت إضافة الكلمات.";
+"No custom words" = "لا توجد كلمات مخصصة";
+"Session History" = "سجل الجلسات";
+"SESSION HISTORY" = "سجل الجلسات";
+"No sessions" = "لا توجد جلسات";
+"CLEAR" = "مسح";
+"BACK" = "عودة";
+"No words detected" = "لم يتم اكتشاف كلمات";
+"SENSOR ACTIVITY" = "نشاط الحساسات";
+
+/* Main investigation */
+"MAG-SCANNER ACTIVE" = "الماسح المغناطيسي نشط";
+"EMF" = "EMF";
+"LOW ACTIVITY" = "نشاط منخفض";
+"SENSORS" = "الحساسات";
+"STABLE" = "مستقر";
+"STANDBY" = "استعداد";
+"REC" = "تسجيل";
+"STOP" = "إيقاف";
+"START" = "بدء";
+"LISTENING..." = "جاري الاستماع…";
+"LISTENING" = "جاري الاستماع";
+"READY" = "جاهز";
+"RECENT WORDS" = "الكلمات الأخيرة";
+"SPIRIT BOX" = "صندوق الأرواح";
+"COMMUNICATION" = "اتصال";
+"EVP RECORDER" = "مسجل EVP";
+"RECORD & ANALYZE" = "تسجيل وتحليل";
+"SLS MODE" = "وضع SLS";
+"VISUAL TRACKING ON" = "التتبع البصري مفعّل";
+"VISUAL TRACKING" = "التتبع البصري";
+"CAMERA MODES" = "أوضاع الكاميرا";
+"NIGHT VISION • SPECTRAL • FILTERS" = "الرؤية الليلية والطيف والفلاتر";
+"MICROPHONE UNAVAILABLE — SENSORS ACTIVE" = "الميكروفون غير متاح — الحساسات نشطة";
+
+/* Camera */
+"CAMERA SETTINGS" = "إعدادات الكاميرا";
+"CAMERA SENSORS" = "حساسات الكاميرا";
+"NORMAL" = "عادي";
+"NIGHT VISION" = "الرؤية الليلية";
+"THERMAL" = "حراري";
+"SPECTRAL" = "طيفي";
+"CAMERA" = "الكاميرا";
+"FRONT CAMERA" = "الكاميرا الأمامية";
+"PHYSICAL CAMERA UNAVAILABLE ON THIS SIMULATOR" = "الكاميرا الفعلية غير متاحة على هذا المحاكي";
+"PHYSICAL CAMERA UNAVAILABLE" = "الكاميرا الفعلية غير متاحة";
+"CAMERA PERMISSION REQUIRED" = "إذن الكاميرا مطلوب";
+"OPTICAL SENSORS READY" = "الحساسات البصرية جاهزة";
+"OPTICAL SENSORS ACTIVE" = "الحساسات البصرية نشطة";
+"CAMERA ERROR" = "خطأ في الكاميرا";
+"The iOS Simulator does not provide a physical camera. Use an iPhone for video and SLS." = "لا يوفر محاكي iOS كاميرا فعلية. يرجى استخدام iPhone للفيديو وSLS‎";
+
+/* Spirit Box */
+"STATIONS" = "المحطات";
+"CHANNEL 1" = "القناة ١";
+"CHANNEL 2" = "القناة ٢";
+"WHITE NOISE" = "الضوضاء البيضاء";
+"ON" = "تشغيل";
+"OFF" = "إيقاف";
+"HISTORY" = "السجل";
+"IDLE" = "خامل";
+"LOADING" = "جاري التحميل";
+"ACTIVE" = "نشط";
+"STOPPED" = "متوقف";
+"ERROR" = "خطأ";
+"SWEEP RATE" = "سرعة المسح";
+"CURRENT STATION" = "المحطة الحالية";
+"SESSION LOGS" = "سجلات الجلسة";
+"AM" = "AM";
+"FM" = "FM";
+"Radio Error" = "خطأ في الراديو";
+
+/* EVP */
+"AUDIO INPUT" = "إدخال الصوت";
+"SENSOR STATUS" = "حالة الحساسات";
+"READY TO RECORD" = "جاهز للتسجيل";
+"RECORDING" = "جاري التسجيل";
+"PVE MODE" = "وضع PVE";
+"MIC GAIN" = "كسب الميكروفون";
+"SAMPLE RATE" = "معدل أخذ العينات";
+"FORMAT" = "التنسيق";
+"WHITE NOISE ACTIVE" = "الضوضاء البيضاء نشطة";
+"WHITE NOISE OFF" = "الضوضاء البيضاء متوقفة";
+"RECORDING HISTORY" = "سجل التسجيلات";
+"TOTAL RECORDINGS" = "إجمالي التسجيلات";
+"TOTAL DURATION" = "المدة الإجمالية";
+"STORAGE USED" = "مساحة التخزين المستخدمة";
+"UNAVAILABLE" = "غير متاح";
+"Audio Error" = "خطأ في الصوت";
+"OK" = "موافق";
+
+/* Additional shared UI */
+"INVESTIGATION ACTIVE" = "التحقيق نشط";
+"SYSTEM STANDBY" = "النظام في وضع الاستعداد";
+"Session history" = "سجل الجلسات";
+"RADIO SWEEP" = "مسح الراديو";
+"VIDEO" = "فيديو";
+"FRONT" = "أمامية";
+"REAR" = "خلفية";
+"RECORDER" = "مسجل";
+"SPIRIT COMMUNICATION" = "اتصال الأرواح";
+"EMF DELTA" = "تغير EMF";
+"AUDIO LEVEL" = "مستوى الصوت";
+"NECROTUBE PREMIUM" = "NECROTUBE PREMIUM";
+"The native iOS service for this feature has not been implemented yet." = "لم يتم تنفيذ خدمة iOS الأصلية لهذه الميزة بعد.";

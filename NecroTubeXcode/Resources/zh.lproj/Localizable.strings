@@ -1,0 +1,121 @@
+/* General */
+"Settings" = "设置";
+"SETTINGS" = "设置";
+"APP LANGUAGE" = "App语言";
+"LEXICON LANGUAGE" = "词库语言";
+"VIEW SESSION HISTORY" = "查看会话历史";
+"RESTORE MY PURCHASES" = "恢复购买";
+"Purchases restored." = "购买项目已恢复。";
+"CUSTOM LEXICON" = "自定义词库";
+"VIEW MY WORDS" = "查看我的单词";
+"ADD WORDS" = "添加单词";
+"Custom Lexicon" = "自定义词库";
+"My Words" = "我的单词";
+"Add up to 100 words or phrases separated by commas or line breaks." = "添加最多100个单词或短语，并用逗号或换行符分隔。";
+"ADD" = "添加";
+"CLOSE" = "关闭";
+"Words added." = "单词已添加。";
+"No custom words" = "没有自定义单词";
+"Session History" = "会话历史";
+"SESSION HISTORY" = "会话历史";
+"No sessions" = "没有会话";
+"CLEAR" = "清除";
+"BACK" = "返回";
+"No words detected" = "未检测到单词";
+"SENSOR ACTIVITY" = "传感器活动";
+
+/* Main investigation */
+"MAG-SCANNER ACTIVE" = "磁性扫描器已激活";
+"EMF" = "EMF";
+"LOW ACTIVITY" = "低活动";
+"SENSORS" = "传感器";
+"STABLE" = "稳定";
+"STANDBY" = "待机";
+"REC" = "录制";
+"STOP" = "停止";
+"START" = "开始";
+"LISTENING..." = "正在聆听…";
+"LISTENING" = "正在聆听";
+"READY" = "就绪";
+"RECENT WORDS" = "最近的单词";
+"SPIRIT BOX" = "Spirit Box";
+"COMMUNICATION" = "通讯";
+"EVP RECORDER" = "EVP录音机";
+"RECORD & ANALYZE" = "录制与分析";
+"SLS MODE" = "SLS模式";
+"VISUAL TRACKING ON" = "视觉跟踪已开启";
+"VISUAL TRACKING" = "视觉跟踪";
+"CAMERA MODES" = "相机模式";
+"NIGHT VISION • SPECTRAL • FILTERS" = "夜视 • 光谱 • 滤镜";
+"MICROPHONE UNAVAILABLE — SENSORS ACTIVE" = "麦克风不可用 — 传感器已激活";
+
+/* Camera */
+"CAMERA SETTINGS" = "相机设置";
+"CAMERA SENSORS" = "相机传感器";
+"NORMAL" = "正常";
+"NIGHT VISION" = "夜视";
+"THERMAL" = "热成像";
+"SPECTRAL" = "光谱";
+"CAMERA" = "相机";
+"FRONT CAMERA" = "前置摄像头";
+"PHYSICAL CAMERA UNAVAILABLE ON THIS SIMULATOR" = "此模拟器无法使用实体相机";
+"PHYSICAL CAMERA UNAVAILABLE" = "实体相机不可用";
+"CAMERA PERMISSION REQUIRED" = "需要相机权限";
+"OPTICAL SENSORS READY" = "光学传感器已就绪";
+"OPTICAL SENSORS ACTIVE" = "光学传感器已激活";
+"CAMERA ERROR" = "相机错误";
+"The iOS Simulator does not provide a physical camera. Use an iPhone for video and SLS." = "iOS模拟器不提供实体相机。请使用iPhone进行视频拍摄和SLS检测。";
+
+/* Spirit Box */
+"STATIONS" = "电台";
+"CHANNEL 1" = "频道1";
+"CHANNEL 2" = "频道2";
+"WHITE NOISE" = "白噪音";
+"ON" = "开启";
+"OFF" = "关闭";
+"HISTORY" = "历史记录";
+"IDLE" = "空闲";
+"LOADING" = "正在载入";
+"ACTIVE" = "已激活";
+"STOPPED" = "已停止";
+"ERROR" = "错误";
+"SWEEP RATE" = "扫描速度";
+"CURRENT STATION" = "当前电台";
+"SESSION LOGS" = "会话日志";
+"AM" = "AM";
+"FM" = "FM";
+"Radio Error" = "无线电错误";
+
+/* EVP */
+"AUDIO INPUT" = "音频输入";
+"SENSOR STATUS" = "传感器状态";
+"READY TO RECORD" = "可以录制";
+"RECORDING" = "录制中";
+"PVE MODE" = "PVE模式";
+"MIC GAIN" = "麦克风增益";
+"SAMPLE RATE" = "采样率";
+"FORMAT" = "格式";
+"WHITE NOISE ACTIVE" = "白噪音已激活";
+"WHITE NOISE OFF" = "白噪音已关闭";
+"RECORDING HISTORY" = "录音历史";
+"TOTAL RECORDINGS" = "录音总数";
+"TOTAL DURATION" = "总时长";
+"STORAGE USED" = "已用存储空间";
+"UNAVAILABLE" = "不可用";
+"Audio Error" = "音频错误";
+"OK" = "好";
+
+/* Additional shared UI */
+"INVESTIGATION ACTIVE" = "调查进行中";
+"SYSTEM STANDBY" = "系统待机";
+"Session history" = "会话历史";
+"RADIO SWEEP" = "无线电扫描";
+"VIDEO" = "视频";
+"FRONT" = "前置";
+"REAR" = "后置";
+"RECORDER" = "录音机";
+"SPIRIT COMMUNICATION" = "灵异通讯";
+"EMF DELTA" = "EMF变化量";
+"AUDIO LEVEL" = "音频电平";
+"NECROTUBE PREMIUM" = "NECROTUBE高级版";
+"The native iOS service for this feature has not been implemented yet." = "此功能的原生iOS服务尚未实现。";

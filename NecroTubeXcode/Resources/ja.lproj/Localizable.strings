@@ -1,0 +1,121 @@
+/* General */
+"Settings" = "設定";
+"SETTINGS" = "設定";
+"APP LANGUAGE" = "アプリの言語";
+"LEXICON LANGUAGE" = "語彙と言語";
+"VIEW SESSION HISTORY" = "セッション履歴を表示";
+"RESTORE MY PURCHASES" = "購入を復元";
+"Purchases restored." = "購入を復元しました。";
+"CUSTOM LEXICON" = "カスタム語彙";
+"VIEW MY WORDS" = "マイワードを表示";
+"ADD WORDS" = "単語を追加";
+"Custom Lexicon" = "カスタム語彙";
+"My Words" = "マイワード";
+"Add up to 100 words or phrases separated by commas or line breaks." = "カンマまたは改行で区切って、単語や語句を最大100件追加できます。";
+"ADD" = "追加";
+"CLOSE" = "閉じる";
+"Words added." = "単語を追加しました。";
+"No custom words" = "カスタム単語がありません";
+"Session History" = "セッション履歴";
+"SESSION HISTORY" = "セッション履歴";
+"No sessions" = "セッションがありません";
+"CLEAR" = "消去";
+"BACK" = "戻る";
+"No words detected" = "単語は検出されませんでした";
+"SENSOR ACTIVITY" = "センサー反応";
+
+/* Main investigation */
+"MAG-SCANNER ACTIVE" = "磁気スキャナーアクティブ";
+"EMF" = "EMF";
+"LOW ACTIVITY" = "低反応";
+"SENSORS" = "センサー";
+"STABLE" = "安定";
+"STANDBY" = "待機中";
+"REC" = "録画";
+"STOP" = "停止";
+"START" = "開始";
+"LISTENING..." = "リスニング中…";
+"LISTENING" = "リスニング中";
+"READY" = "準備完了";
+"RECENT WORDS" = "最近の単語";
+"SPIRIT BOX" = "スピリットボックス";
+"COMMUNICATION" = "交信";
+"EVP RECORDER" = "EVPレコーダー";
+"RECORD & ANALYZE" = "録音と分析";
+"SLS MODE" = "SLSモード";
+"VISUAL TRACKING ON" = "視覚追跡オン";
+"VISUAL TRACKING" = "視覚追跡";
+"CAMERA MODES" = "カメラモード";
+"NIGHT VISION • SPECTRAL • FILTERS" = "暗視 • スペクトル • フィルター";
+"MICROPHONE UNAVAILABLE — SENSORS ACTIVE" = "マイク使用不可 — センサーは稼働中";
+
+/* Camera */
+"CAMERA SETTINGS" = "カメラ設定";
+"CAMERA SENSORS" = "カメラセンサー";
+"NORMAL" = "標準";
+"NIGHT VISION" = "暗視";
+"THERMAL" = "サーマル";
+"SPECTRAL" = "スペクトル";
+"CAMERA" = "カメラ";
+"FRONT CAMERA" = "前面カメラ";
+"PHYSICAL CAMERA UNAVAILABLE ON THIS SIMULATOR" = "このシミュレータでは物理カメラを使用できません";
+"PHYSICAL CAMERA UNAVAILABLE" = "物理カメラを使用できません";
+"CAMERA PERMISSION REQUIRED" = "カメラへのアクセス許可が必要です";
+"OPTICAL SENSORS READY" = "光学センサー準備完了";
+"OPTICAL SENSORS ACTIVE" = "光学センサー稼働中";
+"CAMERA ERROR" = "カメラエラー";
+"The iOS Simulator does not provide a physical camera. Use an iPhone for video and SLS." = "iOSシミュレータには物理カメラがありません。ビデオとSLSにはiPhoneを使用してください。";
+
+/* Spirit Box */
+"STATIONS" = "放送局";
+"CHANNEL 1" = "チャンネル1";
+"CHANNEL 2" = "チャンネル2";
+"WHITE NOISE" = "ホワイトノイズ";
+"ON" = "オン";
+"OFF" = "オフ";
+"HISTORY" = "履歴";
+"IDLE" = "待機中";
+"LOADING" = "読み込み中";
+"ACTIVE" = "アクティブ";
+"STOPPED" = "停止";
+"ERROR" = "エラー";
+"SWEEP RATE" = "スイープ速度";
+"CURRENT STATION" = "現在の放送局";
+"SESSION LOGS" = "セッションログ";
+"AM" = "AM";
+"FM" = "FM";
+"Radio Error" = "ラジオエラー";
+
+/* EVP */
+"AUDIO INPUT" = "オーディオ入力";
+"SENSOR STATUS" = "センサー状態";
+"READY TO RECORD" = "録音準備完了";
+"RECORDING" = "録音中";
+"PVE MODE" = "PVEモード";
+"MIC GAIN" = "マイクゲイン";
+"SAMPLE RATE" = "サンプルレート";
+"FORMAT" = "形式";
+"WHITE NOISE ACTIVE" = "ホワイトノイズ稼働中";
+"WHITE NOISE OFF" = "ホワイトノイズオフ";
+"RECORDING HISTORY" = "録音履歴";
+"TOTAL RECORDINGS" = "録音総数";
+"TOTAL DURATION" = "合計時間";
+"STORAGE USED" = "使用済み容量";
+"UNAVAILABLE" = "使用不可";
+"Audio Error" = "オーディオエラー";
+"OK" = "OK";
+
+/* Additional shared UI */
+"INVESTIGATION ACTIVE" = "調査中";
+"SYSTEM STANDBY" = "システム待機中";
+"Session history" = "セッション履歴";
+"RADIO SWEEP" = "ラジオスイープ";
+"VIDEO" = "ビデオ";
+"FRONT" = "前面";
+"REAR" = "背面";
+"RECORDER" = "レコーダー";
+"SPIRIT COMMUNICATION" = "霊との交信";
+"EMF DELTA" = "EMF変化量";
+"AUDIO LEVEL" = "オーディオレベル";
+"NECROTUBE PREMIUM" = "NECROTUBEプレミアム";
+"The native iOS service for this feature has not been implemented yet." = "この機能のiOSネイティブサービスはまだ実装されていません。";

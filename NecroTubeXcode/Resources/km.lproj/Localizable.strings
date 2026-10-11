@@ -1,0 +1,121 @@
+/* General */
+"Settings" = "ការកំណត់";
+"SETTINGS" = "ការកំណត់";
+"APP LANGUAGE" = "ភាសាកម្មវិធី";
+"LEXICON LANGUAGE" = "ភាសាវចនានុក្រម";
+"VIEW SESSION HISTORY" = "មើលប្រវត្តិសម័យ";
+"RESTORE MY PURCHASES" = "ស្តារការទិញ";
+"Purchases restored." = "បានស្តារការទិញ។";
+"CUSTOM LEXICON" = "វចនានុក្រមផ្ទាល់ខ្លួន";
+"VIEW MY WORDS" = "មើលពាក្យរបស់ខ្ញុំ";
+"ADD WORDS" = "បន្ថែមពាក្យ";
+"Custom Lexicon" = "វចនានុក្រមផ្ទាល់ខ្លួន";
+"My Words" = "ពាក្យរបស់ខ្ញុំ";
+"Add up to 100 words or phrases separated by commas or line breaks." = "បន្ថែមពាក្យ ឬឃ្លារហូតដល់ ១០០ ដោយបំបែកជាមួយសញ្ញាក្បៀស ឬបន្ទាត់ថ្មី។";
+"ADD" = "បន្ថែម";
+"CLOSE" = "បិទ";
+"Words added." = "បានបន្ថែមពាក្យ។";
+"No custom words" = "មិនមានពាក្យផ្ទាល់ខ្លួន";
+"Session History" = "ប្រវត្តិសម័យ";
+"SESSION HISTORY" = "ប្រវត្តិសម័យ";
+"No sessions" = "មិនមានសម័យ";
+"CLEAR" = "សម្អាត";
+"BACK" = "ត្រឡប់ក្រោយ";
+"No words detected" = "រកមិនឃើញពាក្យ";
+"SENSOR ACTIVITY" = "សកម្មភាពសេនស័រ";
+
+/* Main investigation */
+"MAG-SCANNER ACTIVE" = "ម៉ាញេទិចស្កេនសកម្ម";
+"EMF" = "EMF";
+"LOW ACTIVITY" = "សកម្មភាពទាប";
+"SENSORS" = "សេនស័រ";
+"STABLE" = "ស្ថិរភាព";
+"STANDBY" = "រង់ចាំ";
+"REC" = "ថត";
+"STOP" = "បញ្ឈប់";
+"START" = "ចាប់ផ្តើម";
+"LISTENING..." = "កំពុងស្តាប់…";
+"LISTENING" = "កំពុងស្តាប់";
+"READY" = "រួចរាល់";
+"RECENT WORDS" = "ពាក្យថ្មីៗ";
+"SPIRIT BOX" = "Spirit Box";
+"COMMUNICATION" = "ការទំនាក់ទំនង";
+"EVP RECORDER" = "ឧបករណ៍ថត EVP";
+"RECORD & ANALYZE" = "ថត និងវិភាគ";
+"SLS MODE" = "របៀប SLS";
+"VISUAL TRACKING ON" = "ការតាមដានរូបភាពបើក";
+"VISUAL TRACKING" = "ការតាមដានរូបភាព";
+"CAMERA MODES" = "របៀបកាមេរ៉ា";
+"NIGHT VISION • SPECTRAL • FILTERS" = "មើលយប់ • វិសាលគម • តម្រង";
+"MICROPHONE UNAVAILABLE — SENSORS ACTIVE" = "មីក្រូហ្វូនមិនអាចប្រើបាន — សេនស័រសកម្ម";
+
+/* Camera */
+"CAMERA SETTINGS" = "ការកំណត់កាមេរ៉ា";
+"CAMERA SENSORS" = "សេនស័រកាមេរ៉ា";
+"NORMAL" = "ធម្មតា";
+"NIGHT VISION" = "មើលយប់";
+"THERMAL" = "កម្ដៅ";
+"SPECTRAL" = "វិសាលគម";
+"CAMERA" = "កាមេរ៉ា";
+"FRONT CAMERA" = "កាមេរ៉ាមុខ";
+"PHYSICAL CAMERA UNAVAILABLE ON THIS SIMULATOR" = "កាមេរ៉ាពិតមិនអាចប្រើបានលើកម្មវិធីត្រាប់តាមនេះ";
+"PHYSICAL CAMERA UNAVAILABLE" = "កាមេរ៉ាពិតមិនអាចប្រើបាន";
+"CAMERA PERMISSION REQUIRED" = "ត្រូវការការអនុញ្ញាតប្រើកាមេរ៉ា";
+"OPTICAL SENSORS READY" = "សេនស័រអុបទិករួចរាល់";
+"OPTICAL SENSORS ACTIVE" = "សេនស័រអុបទិកសកម្ម";
+"CAMERA ERROR" = "កំហុសកាមេរ៉ា";
+"The iOS Simulator does not provide a physical camera. Use an iPhone for video and SLS." = "កម្មវិធីត្រាប់តាម iOS មិនផ្ដល់កាមេរ៉ាពិតទេ។ សូមប្រើ iPhone សម្រាប់វីដេអូ និង SLS។";
+
+/* Spirit Box */
+"STATIONS" = "ស្ថានីយ";
+"CHANNEL 1" = "ឆានែល ១";
+"CHANNEL 2" = "ឆានែល ២";
+"WHITE NOISE" = "សំឡេងរំខានស";
+"ON" = "បើក";
+"OFF" = "បិទ";
+"HISTORY" = "ប្រវត្តិ";
+"IDLE" = "ទំនេរ";
+"LOADING" = "កំពុងផ្ទុក";
+"ACTIVE" = "សកម្ម";
+"STOPPED" = "បានបញ្ឈប់";
+"ERROR" = "កំហុស";
+"SWEEP RATE" = "ល្បឿនស្កេន";
+"CURRENT STATION" = "ស្ថានីយបច្ចុប្បន្ន";
+"SESSION LOGS" = "កំណត់ហេតុសម័យ";
+"AM" = "AM";
+"FM" = "FM";
+"Radio Error" = "កំហុសវិទ្យុ";
+
+/* EVP */
+"AUDIO INPUT" = "បញ្ចូលសំឡេង";
+"SENSOR STATUS" = "ស្ថានភាពសេនស័រ";
+"READY TO RECORD" = "រួចរាល់ដើម្បីថត";
+"RECORDING" = "កំពុងថត";
+"PVE MODE" = "របៀប PVE";
+"MIC GAIN" = "កម្រិតមីក្រូហ្វូន";
+"SAMPLE RATE" = "អត្រាគំរូ";
+"FORMAT" = "ទម្រង់";
+"WHITE NOISE ACTIVE" = "សំឡេងរំខានសសកម្ម";
+"WHITE NOISE OFF" = "សំឡេងរំខានសបិទ";
+"RECORDING HISTORY" = "ប្រវត្តិការថត";
+"TOTAL RECORDINGS" = "ការថតសរុប";
+"TOTAL DURATION" = "រយៈពេលសរុប";
+"STORAGE USED" = "ទំហំបានប្រើ";
+"UNAVAILABLE" = "មិនអាចប្រើបាន";
+"Audio Error" = "កំហុសសំឡេង";
+"OK" = "យល់ព្រម";
+
+/* Additional shared UI */
+"INVESTIGATION ACTIVE" = "ការស៊ើបអង្កេតសកម្ម";
+"SYSTEM STANDBY" = "ប្រព័ន្ធរង់ចាំ";
+"Session history" = "ប្រវត្តិសម័យ";
+"RADIO SWEEP" = "ស្កេនវិទ្យុ";
+"VIDEO" = "វីដេអូ";
+"FRONT" = "ខាងមុខ";
+"REAR" = "ខាងក្រោយ";
+"RECORDER" = "ឧបករណ៍ថត";
+"SPIRIT COMMUNICATION" = "ការទំនាក់ទំនងវិញ្ញាណ";
+"EMF DELTA" = "បម្រែបម្រួល EMF";
+"AUDIO LEVEL" = "កម្រិតសំឡេង";
+"NECROTUBE PREMIUM" = "NECROTUBE ពិសេស";
+"The native iOS service for this feature has not been implemented yet." = "សេវា iOS ដើមសម្រាប់មុខងារនេះមិនទាន់បានអនុវត្តទេ។";

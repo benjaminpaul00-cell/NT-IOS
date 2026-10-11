@@ -1,0 +1,5 @@
+Le véritable projet NecroTubeXcode.xcodeproj est maintenant ouvert dans une deuxième fenêtre Xcode. Le schéma NecroTubeXcode et mon iPhone physique « iPhone (26) » sont sélectionnés. La signature Apple est déjà configurée et l'application a déjà été installée sur mon iPhone.
+
+Poursuis les corrections des moteurs audio, de la Spirit Box, du bruit blanc EVP, de la synthèse vocale et des enregistrements. Les fichiers du projet sont dans NecroTube-App/iOS/NecroTubeXcode.
+
+Vérifie aussi l'autorisation Photos nécessaire à l'enregistrement des vidéos. Ne modifie aucun fichier Android. Si tu ne peux pas accéder au schéma depuis ton environnement, indique-le sans bloquer les corrections du code source.

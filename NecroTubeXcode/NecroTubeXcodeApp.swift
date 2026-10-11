@@ -1,17 +1,31 @@
-//
-//  NecroTubeXcodeApp.swift
-//  NecroTubeXcode
-//
-//  Created by Ben on 2026-10-09.
-//
-
 import SwiftUI
+
+#if canImport(FirebaseCore)
+import FirebaseCore
+#endif
 
 @main
 struct NecroTubeXcodeApp: App {
+    @StateObject private var appState: AppState
+
+    init() {
+        #if canImport(FirebaseCore)
+        if Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") != nil {
+            FirebaseApp.configure()
+            AnalyticsManager.shared.configureUserProperties()
+            AnalyticsManager.shared.logFirstOpen()
+            AnalyticsManager.shared.logSessionStart()
+        }
+        #endif
+
+        _appState = StateObject(wrappedValue: AppState())
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
+                .environmentObject(appState)
+                .preferredColorScheme(.dark)
         }
     }
 }

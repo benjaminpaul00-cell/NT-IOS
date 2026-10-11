@@ -6,8 +6,13 @@
 	objectVersion = 110;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CED52A44307AB05300E2A45D /* File.txt in Resources */ = {isa = PBXBuildFile; fileRef = CED52A43307AB05300E2A45D /* File.txt */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		CED529CE30799FA700E2A45D /* NecroTubeXcode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NecroTubeXcode.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CED52A43307AB05300E2A45D /* File.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = File.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -30,6 +35,7 @@
 		CED529C530799FA700E2A45D = {
 			isa = PBXGroup;
 			children = (
+				CED52A43307AB05300E2A45D /* File.txt */,
 				CED529D030799FA700E2A45D /* NecroTubeXcode */,
 				CED529CF30799FA700E2A45D /* Products */,
 			);
@@ -85,9 +91,22 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
+				km,
+				zh,
+				ar,
+				fr,
+				es,
+				de,
+				it,
+				pt,
+				ro,
 			);
 			mainGroup = CED529C530799FA700E2A45D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				CE32C17C307B47B200AD3A17 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CED529CF30799FA700E2A45D /* Products */;
 			projectDirPath = "";
@@ -102,6 +121,7 @@
 		CED529CC30799FA700E2A45D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
+				CED52A44307AB05300E2A45D /* File.txt in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */
@@ -246,11 +266,15 @@
 				DEVELOPMENT_TEAM = 2Q9PS48BXU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = NecroTube;
+				INFOPLIST_KEY_NSCameraUsageDescription = "NecroTube utilise la camera pour les investigations paranormales et la detection SLS";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "NecroTube utilise le microphonepour enregistrer et analyser les phenomenes audio EVP";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "NecroTube ajoute vos enregistrements video a votre phototheque apres votre authorisation.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -278,11 +302,15 @@
 				DEVELOPMENT_TEAM = 2Q9PS48BXU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = NecroTube;
+				INFOPLIST_KEY_NSCameraUsageDescription = "NecroTube utilise la camera pour les investigations paranormales et la detection SLS";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "NecroTube utilise le microphonepour enregistrer et analyser les phenomenes audio EVP";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "NecroTube ajoute vos enregistrements video a votre phototheque apres votre authorisation.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -320,6 +348,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CE32C17C307B47B200AD3A17 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = CED529C630799FA700E2A45D /* Project object */;
 	validationLevel = 1;
