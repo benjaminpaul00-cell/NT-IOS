@@ -1,0 +1,212 @@
+name: NecroTube iOS 1.1 (3)
+
+on:
+  push:
+    branches: [main, 'ci/**']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy_testflight:
+        description: 'Archive, sign and upload to TestFlight (requires ENABLE_TESTFLIGHT and Apple secrets)'
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  PROJECT: NecroTubeXcode.xcodeproj
+  SCHEME: NecroTubeXcode
+
+jobs:
+  validate:
+    name: Validate unsigned iOS build
+    runs-on: xcode-27
+    timeout-minutes: 60
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Check Xcode and iOS SDK
+        run: bash scripts/ci/check-xcode.sh
+
+      - name: Audit versions and all 11 localizations
+        run: |
+          python3 -m py_compile scripts/ci/verify-bundle.py scripts/ci/signing.py
+          python3 - <<'PY'
+          import xml.etree.ElementTree as ET
+          ET.parse('NecroTubeXcode.xcodeproj/xcshareddata/xcschemes/NecroTubeXcode.xcscheme')
+          PY
+          node scripts/verify-localization.cjs
+          while IFS= read -r -d '' file; do
+            plutil -lint "$file"
+          done < <(find NecroTubeXcode/Resources -name '*.strings' -print0)
+
+      - name: Resolve pinned Swift packages
+        run: |
+          mkdir -p build/logs
+          xcodebuild -resolvePackageDependencies \
+            -project "$PROJECT" -scheme "$SCHEME" \
+            -clonedSourcePackagesDirPath "$RUNNER_TEMP/SourcePackages" \
+            -onlyUsePackageVersionsFromResolvedFile \
+            2>&1 | tee build/logs/packages.log
+          git diff --exit-code -- "$PROJECT/project.xcworkspace/xcshareddata/swiftpm/Package.resolved"
+
+      - name: Build Debug and Release without Apple signing
+        run: |
+          for configuration in Debug Release; do
+            xcodebuild build \
+              -project "$PROJECT" -scheme "$SCHEME" \
+              -configuration "$configuration" \
+              -destination 'generic/platform=iOS' \
+              -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+              -clonedSourcePackagesDirPath "$RUNNER_TEMP/SourcePackages" \
+              -disableAutomaticPackageResolution \
+              -onlyUsePackageVersionsFromResolvedFile \
+              -resultBundlePath "build/$configuration.xcresult" \
+              CODE_SIGNING_ALLOWED=NO \
+              2>&1 | tee "build/logs/$configuration.log"
+            python3 scripts/ci/verify-bundle.py \
+              "$RUNNER_TEMP/DerivedData/Build/Products/$configuration-iphoneos/NecroTubeXcode.app"
+          done
+
+      - name: Retain validation diagnostics
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ios-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            build/logs/
+            build/*.xcresult
+          if-no-files-found: ignore
+          retention-days: 7
+
+  testflight:
+    name: Archive, sign and upload to TestFlight
+    needs: validate
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      inputs.deploy_testflight &&
+      vars.ENABLE_TESTFLIGHT == 'true' &&
+      github.ref == 'refs/heads/main'
+    runs-on: xcode-27
+    timeout-minutes: 60
+    environment: testflight
+    concurrency:
+      group: necrotube-testflight-1.1-3
+      cancel-in-progress: false
+    steps:
+      - name: Checkout validated source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Require all Apple secrets before signing
+        env:
+          APPLE_DISTRIBUTION_P12_BASE64: ${{ secrets.APPLE_DISTRIBUTION_P12_BASE64 }}
+          APPLE_DISTRIBUTION_P12_PASSWORD: ${{ secrets.APPLE_DISTRIBUTION_P12_PASSWORD }}
+          APPLE_PROVISIONING_PROFILE_BASE64: ${{ secrets.APPLE_PROVISIONING_PROFILE_BASE64 }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_PRIVATE_KEY_P8: ${{ secrets.ASC_PRIVATE_KEY_P8 }}
+        run: |
+          python3 - <<'PY'
+          import os
+          required = ('APPLE_DISTRIBUTION_P12_BASE64', 'APPLE_DISTRIBUTION_P12_PASSWORD',
+                      'APPLE_PROVISIONING_PROFILE_BASE64', 'KEYCHAIN_PASSWORD',
+                      'APPLE_TEAM_ID', 'ASC_KEY_ID', 'ASC_ISSUER_ID', 'ASC_PRIVATE_KEY_P8')
+          missing = [name for name in required if not os.environ.get(name, '').strip()]
+          if missing:
+              raise SystemExit('Missing GitHub Secrets: ' + ', '.join(missing))
+          print('All required secret names are configured; values are never printed.')
+          PY
+
+      - name: Check Xcode and iOS SDK
+        run: bash scripts/ci/check-xcode.sh
+
+      - name: Resolve pinned Swift packages
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -project "$PROJECT" -scheme "$SCHEME" \
+            -clonedSourcePackagesDirPath "$RUNNER_TEMP/SourcePackages" \
+            -onlyUsePackageVersionsFromResolvedFile
+          git diff --exit-code -- "$PROJECT/project.xcworkspace/xcshareddata/swiftpm/Package.resolved"
+
+      - name: Import signing credentials into an isolated temporary keychain
+        env:
+          APPLE_DISTRIBUTION_P12_BASE64: ${{ secrets.APPLE_DISTRIBUTION_P12_BASE64 }}
+          APPLE_DISTRIBUTION_P12_PASSWORD: ${{ secrets.APPLE_DISTRIBUTION_P12_PASSWORD }}
+          APPLE_PROVISIONING_PROFILE_BASE64: ${{ secrets.APPLE_PROVISIONING_PROFILE_BASE64 }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_PRIVATE_KEY_P8: ${{ secrets.ASC_PRIVATE_KEY_P8 }}
+        run: python3 scripts/ci/signing.py prepare
+
+      - name: Archive Release with Apple Distribution signing
+        env:
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          xcodebuild archive \
+            -project "$PROJECT" -scheme "$SCHEME" -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$RUNNER_TEMP/NecroTube.xcarchive" \
+            -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+            -clonedSourcePackagesDirPath "$RUNNER_TEMP/SourcePackages" \
+            -disableAutomaticPackageResolution \
+            -onlyUsePackageVersionsFromResolvedFile \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
+            CODE_SIGN_IDENTITY="$SIGNING_IDENTITY" \
+            PROVISIONING_PROFILE_SPECIFIER="$PROFILE_UUID" \
+            OTHER_CODE_SIGN_FLAGS="--keychain $RUNNER_TEMP/necrotube-signing/signing.keychain-db"
+
+      - name: Verify archive and signature
+        run: |
+          app="$RUNNER_TEMP/NecroTube.xcarchive/Products/Applications/NecroTubeXcode.app"
+          python3 scripts/ci/verify-bundle.py "$app"
+          codesign --verify --deep --strict --verbose=2 "$app"
+
+      - name: Export signed App Store IPA
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/NecroTube.xcarchive" \
+            -exportPath "$RUNNER_TEMP/necrotube-export" \
+            -exportOptionsPlist "$RUNNER_TEMP/necrotube-signing/ExportOptions.plist"
+
+      - name: Validate and upload IPA to App Store Connect
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          API_PRIVATE_KEYS_DIR: ${{ runner.temp }}/necrotube-signing/private_keys
+        run: |
+          shopt -s nullglob
+          packages=("$RUNNER_TEMP/necrotube-export/"*.ipa)
+          if [[ ${#packages[@]} -ne 1 ]]; then
+            echo 'Expected exactly one exported IPA.' >&2
+            exit 1
+          fi
+          xcrun altool --validate-app --file "${packages[0]}" --type ios \
+            --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
+          xcrun altool --upload-app --file "${packages[0]}" --type ios \
+            --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
+          echo 'Upload completed. Apple processing and tester assignment happen in App Store Connect.' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Remove signing credentials and temporary keychain
+        if: always()
+        run: python3 scripts/ci/signing.py cleanup
