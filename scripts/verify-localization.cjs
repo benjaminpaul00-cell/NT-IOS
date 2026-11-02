@@ -75,13 +75,17 @@ for (const [, name, settings] of configurations) {
     assert(/MARKETING_VERSION = 1\.1;/.test(settings), `${name}: version must be 1.1`);
     assert(/CURRENT_PROJECT_VERSION = 3;/.test(settings), `${name}: build must be 3`);
     assert(settings.includes('GENERATE_INFOPLIST_FILE = YES;'));
-    assert(settings.includes('INFOPLIST_KEY_UIPrefersShowingLanguageSettings = YES;'), `${name}: language settings visibility missing`);
+    assert(settings.includes('INFOPLIST_FILE = Configuration/Info.plist;'), `${name}: typed Info.plist input missing`);
     for (const key of privacyKeys) {
         const match = settings.match(new RegExp(`INFOPLIST_KEY_${key} = ("[^"\r\n]*");`));
         assert(match, `${name}: missing ${key}`);
         assert.equal(JSON.parse(match[1]), english.info.get(key), `${name}: inconsistent English fallback ${key}`);
     }
 }
+
+const infoTemplate = read('Configuration/Info.plist');
+assert(/<key>UIPrefersShowingLanguageSettings<\/key>\s*<true\s*\/>/.test(infoTemplate),
+    'Language settings visibility must be a Boolean true in the Info.plist input');
 
 function swiftFiles(directory) {
     return fs.readdirSync(path.join(root, directory), { withFileTypes: true }).flatMap(entry => {

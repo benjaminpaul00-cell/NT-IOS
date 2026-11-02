@@ -266,6 +266,7 @@
 				DEVELOPMENT_TEAM = 2Q9PS48BXU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Configuration/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NecroTube;
 				INFOPLIST_KEY_NSCameraUsageDescription = "NecroTube uses the camera to display live video, detect body poses in SLS mode, and record your investigation videos.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "NecroTube uses the microphone to measure audio levels during investigations and record EVP audio and video sound.";
@@ -273,7 +274,6 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIPrefersShowingLanguageSettings = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -303,6 +303,7 @@
 				DEVELOPMENT_TEAM = 2Q9PS48BXU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Configuration/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NecroTube;
 				INFOPLIST_KEY_NSCameraUsageDescription = "NecroTube uses the camera to display live video, detect body poses in SLS mode, and record your investigation videos.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "NecroTube uses the microphone to measure audio levels during investigations and record EVP audio and video sound.";
@@ -310,7 +311,6 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIPrefersShowingLanguageSettings = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -50,6 +50,7 @@ jobs:
           ET.parse('NecroTubeXcode.xcodeproj/xcshareddata/xcschemes/NecroTubeXcode.xcscheme')
           PY
           node scripts/verify-localization.cjs
+          plutil -lint Configuration/Info.plist
           while IFS= read -r -d '' file; do
             plutil -lint "$file"
           done < <(find NecroTubeXcode/Resources -name '*.strings' -print0)

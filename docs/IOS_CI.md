@@ -8,6 +8,8 @@ La validation se lance sur un push vers `main` ou `ci/**`, une pull request vers
 
 Le schéma partagé `NecroTubeXcode` est versionné pour rendre le projet utilisable sur un runner vierge. La seule dépendance Swift Package directe est Firebase iOS SDK, verrouillée en 13.0.1 dans `Package.resolved` avec 12 dépendances transitives. Le fichier de verrouillage doit rester inchangé. Les vérifications de signatures/empreintes Swift Package et les contrôles de sécurité Xcode ne sont pas contournés. Le projet référence Firebase sans déclarer de produits Firebase liés à la cible ; les imports existants sont conditionnels à `canImport`. La CI conserve exactement cette intégration et n'active pas de nouvelle fonctionnalité Analytics.
 
+`Configuration/Info.plist` fournit uniquement la clé personnalisée `UIPrefersShowingLanguageSettings` avec le type booléen vrai. Il est fusionné avec les informations générées par Xcode. Ce typage est nécessaire : le premier essai macOS a compilé Debug mais a échoué au contrôle du bundle pour cette clé lorsqu'elle était fournie seulement par `INFOPLIST_KEY_…`. Les trois descriptions d'autorisation et leurs traductions restent inchangées.
+
 ## Lancer la validation depuis GitHub
 
 1. Ouvrir `https://github.com/benjaminpaul00-cell/NT-IOS`.
