@@ -1,0 +1,4 @@
+/* System permission purpose strings. */
+"NSCameraUsageDescription" = "NecroTube ប្រើកាមេរ៉ាដើម្បីបង្ហាញវីដេអូផ្ទាល់ សម្គាល់ឥរិយាបថរាងកាយក្នុងមុខងារ SLS និងថតវីដេអូការស៊ើបអង្កេតរបស់អ្នក។";
+"NSMicrophoneUsageDescription" = "NecroTube ប្រើមីក្រូហ្វូនដើម្បីវាស់កម្រិតសំឡេងពេលស៊ើបអង្កេត និងថតសំឡេង EVP និងសំឡេងវីដេអូ។";
+"NSPhotoLibraryAddUsageDescription" = "NecroTube បន្ថែមវីដេអូការស៊ើបអង្កេតដែលអ្នកថតទៅក្នុងបណ្ណាល័យរូបថតរបស់អ្នក។";

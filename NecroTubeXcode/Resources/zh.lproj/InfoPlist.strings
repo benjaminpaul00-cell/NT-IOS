@@ -1,0 +1,4 @@
+/* System permission purpose strings. */
+"NSCameraUsageDescription" = "NecroTube使用相机显示实时画面、在SLS模式下检测身体姿态，并录制您的调查视频。";
+"NSMicrophoneUsageDescription" = "NecroTube使用麦克风测量调查期间的音量，并录制EVP音频和视频声音。";
+"NSPhotoLibraryAddUsageDescription" = "NecroTube将您录制的调查视频添加到您的照片图库。";

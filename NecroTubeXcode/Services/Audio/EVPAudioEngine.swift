@@ -12,10 +12,10 @@ final class EVPAudioEngine: ObservableObject, AudioServicing {
 
         var errorDescription: String? {
             switch self {
-            case .permissionDenied: "L’accès au microphone est refusé."
-            case .unavailableInput: "Aucune entrée audio compatible n’est disponible."
-            case .recordingNotStarted: "L’enregistrement EVP n’a pas démarré."
-            case .noAudioCaptured: "Aucun son n’a été capturé. Vérifiez l’entrée microphone dans le menu I/O du simulateur."
+            case .permissionDenied: String(localized: "Microphone access is denied.")
+            case .unavailableInput: String(localized: "No compatible audio input is available.")
+            case .recordingNotStarted: String(localized: "EVP recording did not start.")
+            case .noAudioCaptured: String(localized: "No audio was captured. Check the microphone input in the simulator's I/O menu.")
             }
         }
     }
@@ -342,7 +342,7 @@ final class EVPAudioEngine: ObservableObject, AudioServicing {
         } catch {
             isWhiteNoisePlaying = false
             AudioSessionCoordinator.shared.release(.evpNoise)
-            errorMessage = "Le bruit blanc a été interrompu par un changement audio : \(error.localizedDescription)"
+            errorMessage = String(format: String(localized: "White noise was interrupted by an audio configuration change: %@"), error.localizedDescription)
         }
     }
 
@@ -362,7 +362,7 @@ final class EVPAudioEngine: ObservableObject, AudioServicing {
                 try rebuildWhiteNoiseGraph()
             }
         } catch {
-            errorMessage = "La session EVP n’a pas pu reprendre : \(error.localizedDescription)"
+            errorMessage = String(format: String(localized: "The EVP session could not resume: %@"), error.localizedDescription)
         }
     }
 

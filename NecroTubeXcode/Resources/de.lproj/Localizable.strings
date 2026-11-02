@@ -119,3 +119,43 @@
 "AUDIO LEVEL" = "AUDIOPEGEL";
 "NECROTUBE PREMIUM" = "NECROTUBE PREMIUM";
 "The native iOS service for this feature has not been implemented yet." = "Der native iOS-Dienst für diese Funktion wurde noch nicht implementiert.";
+
+/* Permissions and system language settings */
+"Camera access is denied." = "Der Kamerazugriff wurde verweigert.";
+"Microphone access is denied." = "Der Mikrofonzugriff wurde verweigert.";
+"Microphone access is required to record video with sound." = "Zum Aufnehmen von Videos mit Ton ist Mikrofonzugriff erforderlich.";
+"Permission to add videos to Photos is denied." = "Die Berechtigung zum Hinzufügen von Videos zu Fotos wurde verweigert.";
+"Change app language in iOS Settings" = "App-Sprache in den iOS-Einstellungen ändern";
+"Recording saved to Photos." = "Aufnahme in Fotos gespeichert.";
+"Video kept in the app but not added to Photos: %@" = "Video in der App gespeichert, aber nicht zu Fotos hinzugefügt: %@";
+
+/* Localized interface and service messages (1.1 build 3) */
+"No camera is available." = "Es ist keine Kamera verfügbar.";
+"The camera could not be configured." = "Die Kamera konnte nicht konfiguriert werden.";
+"Video recording is unavailable." = "Die Videoaufnahme ist nicht verfügbar.";
+"The recorded video is empty or unreadable." = "Das aufgenommene Video ist leer oder nicht lesbar.";
+"No compatible audio input is available." = "Es ist kein kompatibler Audioeingang verfügbar.";
+"EVP recording did not start." = "Die EVP-Aufnahme wurde nicht gestartet.";
+"No audio was captured. Check the microphone input in the simulator's I/O menu." = "Es wurde kein Ton aufgenommen. Prüfe den Mikrofoneingang im I/O-Menü des Simulators.";
+"White noise was interrupted by an audio configuration change: %@" = "Das weiße Rauschen wurde durch eine Änderung der Audiokonfiguration unterbrochen: %@";
+"The EVP session could not resume: %@" = "Die EVP-Sitzung konnte nicht fortgesetzt werden: %@";
+"The magnetometer or accelerometer is unavailable." = "Das Magnetometer oder der Beschleunigungssensor ist nicht verfügbar.";
+"Lexicon not found for language %@." = "Kein Lexikon für die Sprache %@ gefunden.";
+"No compatible voice stations were found." = "Es wurden keine kompatiblen Sprachsender gefunden.";
+"The radio station service returned an invalid response." = "Der Radiosenderdienst hat eine ungültige Antwort zurückgegeben.";
+"Recording saved" = "Aufnahme gespeichert";
+"Error" = "Fehler";
+"RECORDINGS" = "AUFNAHMEN";
+"No recordings" = "Keine Aufnahmen";
+"Delete this EVP recording?" = "Diese EVP-Aufnahme löschen?";
+"Delete this video from the app?" = "Dieses Video aus der App löschen?";
+"Delete" = "Löschen";
+"Cancel" = "Abbrechen";
+"WHITE NOISE VOLUME" = "LAUTSTÄRKE DES WEISSEN RAUSCHENS";
+"REV" = "RÜCKW.";
+"FWD" = "VORW.";
+"REVERSE" = "RÜCKWÄRTS";
+"FORWARD" = "VORWÄRTS";
+"[SENSOR ACTIVITY]: %@" = "[SENSORAKTIVITÄT]: %@";
+"Next station…" = "Nächster Sender…";
+"Audio output is temporarily in use by the system. Close Siri or end the current call, then try again." = "Die Audioausgabe wird vorübergehend vom System verwendet. Schließe Siri oder beende den aktuellen Anruf und versuche es erneut.";

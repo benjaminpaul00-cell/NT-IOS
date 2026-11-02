@@ -142,7 +142,7 @@ private struct SessionHistorySection: View {
                     HStack(alignment: .firstTextBaseline) {
                         Text(event.date, format: .dateTime.hour().minute().second())
                             .foregroundStyle(.secondary)
-                        Text("[SENSOR ACTIVITY]: \(event.value)")
+                        Text(String(format: String(localized: "[SENSOR ACTIVITY]: %@"), event.value))
                     }
                     .font(.system(size: 9, design: .monospaced))
                     .foregroundStyle(.gray)
@@ -154,7 +154,7 @@ private struct SessionHistorySection: View {
 
     private var shareText: String {
         let entries = session.events.map {
-            "\($0.date.formatted(date: .omitted, time: .standard)) [SENSOR ACTIVITY]: \($0.value)"
+            "\($0.date.formatted(date: .omitted, time: .standard)) \(String(format: String(localized: "[SENSOR ACTIVITY]: %@"), $0.value))"
         }
         return (["NecroTube — \(session.startedAt.formatted())"] + entries).joined(separator: "\n")
     }

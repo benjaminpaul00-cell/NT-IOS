@@ -119,3 +119,43 @@
 "AUDIO LEVEL" = "音频电平";
 "NECROTUBE PREMIUM" = "NECROTUBE高级版";
 "The native iOS service for this feature has not been implemented yet." = "此功能的原生iOS服务尚未实现。";
+
+/* Permissions and system language settings */
+"Camera access is denied." = "相机访问权限已被拒绝。";
+"Microphone access is denied." = "麦克风访问权限已被拒绝。";
+"Microphone access is required to record video with sound." = "录制有声视频需要麦克风访问权限。";
+"Permission to add videos to Photos is denied." = "向照片添加视频的权限已被拒绝。";
+"Change app language in iOS Settings" = "在iOS设置中更改应用语言";
+"Recording saved to Photos." = "录像已保存到照片。";
+"Video kept in the app but not added to Photos: %@" = "视频已保留在应用内，但未添加到照片：%@";
+
+/* Localized interface and service messages (1.1 build 3) */
+"No camera is available." = "没有可用的相机。";
+"The camera could not be configured." = "无法配置相机。";
+"Video recording is unavailable." = "无法录制视频。";
+"The recorded video is empty or unreadable." = "录制的视频为空或无法读取。";
+"No compatible audio input is available." = "没有可用的兼容音频输入。";
+"EVP recording did not start." = "EVP录音未能开始。";
+"No audio was captured. Check the microphone input in the simulator's I/O menu." = "未录制到声音。请检查模拟器I/O菜单中的麦克风输入。";
+"White noise was interrupted by an audio configuration change: %@" = "音频配置更改导致白噪音中断：%@";
+"The EVP session could not resume: %@" = "无法恢复EVP会话：%@";
+"The magnetometer or accelerometer is unavailable." = "磁力计或加速度计不可用。";
+"Lexicon not found for language %@." = "未找到语言%@的词库。";
+"No compatible voice stations were found." = "未找到兼容的语音电台。";
+"The radio station service returned an invalid response." = "电台服务返回了无效响应。";
+"Recording saved" = "录像已保存";
+"Error" = "错误";
+"RECORDINGS" = "录像";
+"No recordings" = "暂无录像";
+"Delete this EVP recording?" = "删除这段EVP录音？";
+"Delete this video from the app?" = "从应用中删除这段视频？";
+"Delete" = "删除";
+"Cancel" = "取消";
+"WHITE NOISE VOLUME" = "白噪音音量";
+"REV" = "反向";
+"FWD" = "正向";
+"REVERSE" = "反向";
+"FORWARD" = "正向";
+"[SENSOR ACTIVITY]: %@" = "[传感器活动]：%@";
+"Next station…" = "下一个电台…";
+"Audio output is temporarily in use by the system. Close Siri or end the current call, then try again." = "系统暂时正在使用音频输出。请关闭Siri或结束当前通话，然后重试。";

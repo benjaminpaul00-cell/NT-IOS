@@ -119,3 +119,43 @@
 "AUDIO LEVEL" = "مستوى الصوت";
 "NECROTUBE PREMIUM" = "NECROTUBE PREMIUM";
 "The native iOS service for this feature has not been implemented yet." = "لم يتم تنفيذ خدمة iOS الأصلية لهذه الميزة بعد.";
+
+/* Permissions and system language settings */
+"Camera access is denied." = "تم رفض الوصول إلى الكاميرا.";
+"Microphone access is denied." = "تم رفض الوصول إلى الميكروفون.";
+"Microphone access is required to record video with sound." = "يلزم الوصول إلى الميكروفون لتسجيل فيديو مع الصوت.";
+"Permission to add videos to Photos is denied." = "تم رفض الإذن بإضافة مقاطع فيديو إلى الصور.";
+"Change app language in iOS Settings" = "تغيير لغة التطبيق في إعدادات iOS";
+"Recording saved to Photos." = "تم حفظ التسجيل في الصور.";
+"Video kept in the app but not added to Photos: %@" = "تم الاحتفاظ بالفيديو في التطبيق، ولكن لم تتم إضافته إلى الصور: %@";
+
+/* Localized interface and service messages (1.1 build 3) */
+"No camera is available." = "لا توجد كاميرا متاحة.";
+"The camera could not be configured." = "تعذر إعداد الكاميرا.";
+"Video recording is unavailable." = "تسجيل الفيديو غير متاح.";
+"The recorded video is empty or unreadable." = "الفيديو المسجل فارغ أو غير قابل للقراءة.";
+"No compatible audio input is available." = "لا يوجد مدخل صوت متوافق متاح.";
+"EVP recording did not start." = "لم يبدأ تسجيل EVP.";
+"No audio was captured. Check the microphone input in the simulator's I/O menu." = "لم يتم تسجيل أي صوت. تحقق من مدخل الميكروفون في قائمة I/O بالمحاكي.";
+"White noise was interrupted by an audio configuration change: %@" = "توقفت الضوضاء البيضاء بسبب تغيير في إعدادات الصوت: %@";
+"The EVP session could not resume: %@" = "تعذر استئناف جلسة EVP: %@";
+"The magnetometer or accelerometer is unavailable." = "مقياس المجال المغناطيسي أو مقياس التسارع غير متاح.";
+"Lexicon not found for language %@." = "لم يتم العثور على معجم للغة %@.";
+"No compatible voice stations were found." = "لم يتم العثور على محطات صوتية متوافقة.";
+"The radio station service returned an invalid response." = "أعادت خدمة محطات الراديو استجابة غير صالحة.";
+"Recording saved" = "تم حفظ التسجيل";
+"Error" = "خطأ";
+"RECORDINGS" = "التسجيلات";
+"No recordings" = "لا توجد تسجيلات";
+"Delete this EVP recording?" = "هل تريد حذف تسجيل EVP هذا؟";
+"Delete this video from the app?" = "هل تريد حذف هذا الفيديو من التطبيق؟";
+"Delete" = "حذف";
+"Cancel" = "إلغاء";
+"WHITE NOISE VOLUME" = "مستوى صوت الضوضاء البيضاء";
+"REV" = "عكسي";
+"FWD" = "أمامي";
+"REVERSE" = "الاتجاه العكسي";
+"FORWARD" = "الاتجاه الأمامي";
+"[SENSOR ACTIVITY]: %@" = "[نشاط المستشعرات]: %@";
+"Next station…" = "المحطة التالية…";
+"Audio output is temporarily in use by the system. Close Siri or end the current call, then try again." = "يستخدم النظام مخرج الصوت مؤقتًا. أغلق Siri أو أنهِ المكالمة الحالية، ثم حاول مرة أخرى.";

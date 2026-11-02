@@ -62,7 +62,7 @@ struct InvestigationView: View {
                 .presentationDragIndicator(.visible)
                 .presentationBackground(.black)
         }
-        .alert("Enregistrement sauvegardé", isPresented: Binding(
+        .alert("Recording saved", isPresented: Binding(
             get: { state.confirmationMessage != nil },
             set: { if !$0 { state.confirmationMessage = nil } }
         )) {
@@ -70,7 +70,7 @@ struct InvestigationView: View {
         } message: {
             Text(state.confirmationMessage ?? "")
         }
-        .alert("Erreur", isPresented: Binding(
+        .alert("Error", isPresented: Binding(
             get: { state.errorMessage != nil },
             set: { if !$0 { state.errorMessage = nil } }
         )) {
@@ -309,7 +309,7 @@ private struct SensorStatusCard: View {
             Divider().overlay(NecroTheme.border)
             HStack(spacing: 7) {
                 Image(systemName: "wifi").font(.system(size: 19))
-                Text(sensorActive ? "STABLE" : "STANDBY")
+            Text(LocalizedStringKey(sensorActive ? "STABLE" : "STANDBY"))
                     .font(.system(size: 11, weight: .bold))
             }
         }
@@ -329,7 +329,7 @@ private struct RecordingButton: View {
         Button(action: action) {
             HStack(spacing: 2) {
                 Image(systemName: "circle.fill").font(.system(size: 12))
-                Text(isRecording ? " STOP" : " REC").font(.system(size: 8))
+                Text(LocalizedStringKey(isRecording ? "STOP" : "REC")).font(.system(size: 8))
             }
             .padding(.horizontal, 7)
             .padding(.vertical, 5)
@@ -607,9 +607,9 @@ private struct CameraRecordingsSection: View {
     @State private var recordingToDelete: URL?
 
     var body: some View {
-        CameraSettingsSection(title: "ENREGISTREMENTS") {
+                    CameraSettingsSection(title: "RECORDINGS") {
             if camera.recentRecordings.isEmpty {
-                Text("Aucun enregistrement")
+                            Text("No recordings")
                     .font(.caption.monospaced())
                     .foregroundStyle(.secondary)
             } else {
@@ -634,19 +634,19 @@ private struct CameraRecordingsSection: View {
             }
         }
         .confirmationDialog(
-            "Supprimer cette vidéo de l’application ?",
+            "Delete this video from the app?",
             isPresented: Binding(
                 get: { recordingToDelete != nil },
                 set: { if !$0 { recordingToDelete = nil } }
             ),
             titleVisibility: .visible
         ) {
-            Button("Supprimer", role: .destructive) {
+            Button("Delete", role: .destructive) {
                 guard let recordingToDelete else { return }
                 try? camera.deleteRecording(at: recordingToDelete)
                 self.recordingToDelete = nil
             }
-            Button("Annuler", role: .cancel) {
+            Button("Cancel", role: .cancel) {
                 recordingToDelete = nil
             }
         }
@@ -674,7 +674,7 @@ private struct CameraToggle: View {
     @Binding var isOn: Bool
 
     var body: some View {
-        Toggle(title, isOn: $isOn)
+        Toggle(LocalizedStringKey(title), isOn: $isOn)
             .font(.body.monospaced())
             .tint(NecroTheme.accent)
     }

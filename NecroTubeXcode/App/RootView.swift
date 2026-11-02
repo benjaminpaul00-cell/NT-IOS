@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct RootView: View {
+    @Environment(\.scenePhase) private var scenePhase
     @EnvironmentObject private var appState: AppState
 
     var body: some View {
@@ -28,5 +29,8 @@ struct RootView: View {
                 }
         }
         .environment(\.locale, Locale(identifier: appState.appLanguage.rawValue))
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active { appState.refreshAppLanguage() }
+        }
     }
 }

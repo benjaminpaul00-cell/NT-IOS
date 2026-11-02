@@ -23,8 +23,8 @@ final class RadioSweepEngine: ObservableObject, RadioSweepServicing {
 
         var errorDescription: String? {
             switch self {
-            case .noStations: "Aucune station vocale compatible n’a été trouvée."
-            case .invalidResponse: "Le service de stations radio a renvoyé une réponse invalide."
+            case .noStations: String(localized: "No compatible voice stations were found.")
+            case .invalidResponse: String(localized: "The radio station service returned an invalid response.")
             }
         }
     }
@@ -335,7 +335,7 @@ final class RadioSweepEngine: ObservableObject, RadioSweepServicing {
                         if let pool = self.stationsByBand[self.channelBands[channel]], !pool.isEmpty {
                             self.loadNextStation(into: activeIndex, channel: channel, pool: pool)
                         }
-                        self.currentStationNames[channel] = "Station suivante…"
+                self.currentStationNames[channel] = String(localized: "Next station…")
                         try? await Task.sleep(for: .milliseconds(50))
                         continue
                     }
@@ -578,7 +578,7 @@ final class RadioSweepEngine: ObservableObject, RadioSweepServicing {
     private static func userFacingMessage(for error: Error) -> String {
         let nsError = error as NSError
         if nsError.domain == NSOSStatusErrorDomain, nsError.code == 561_017_449 {
-            return "La sortie audio est momentanément utilisée par le système. Fermez Siri ou l’appel en cours, puis réessayez."
+            return String(localized: "Audio output is temporarily in use by the system. Close Siri or end the current call, then try again.")
         }
         return error.localizedDescription
     }

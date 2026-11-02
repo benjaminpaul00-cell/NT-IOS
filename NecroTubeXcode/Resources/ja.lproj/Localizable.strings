@@ -2,7 +2,7 @@
 "Settings" = "設定";
 "SETTINGS" = "設定";
 "APP LANGUAGE" = "アプリの言語";
-"LEXICON LANGUAGE" = "語彙と言語";
+"LEXICON LANGUAGE" = "語彙の言語";
 "VIEW SESSION HISTORY" = "セッション履歴を表示";
 "RESTORE MY PURCHASES" = "購入を復元";
 "Purchases restored." = "購入を復元しました。";
@@ -119,3 +119,43 @@
 "AUDIO LEVEL" = "オーディオレベル";
 "NECROTUBE PREMIUM" = "NECROTUBEプレミアム";
 "The native iOS service for this feature has not been implemented yet." = "この機能のiOSネイティブサービスはまだ実装されていません。";
+
+/* Permissions and system language settings */
+"Camera access is denied." = "カメラへのアクセスが拒否されています。";
+"Microphone access is denied." = "マイクへのアクセスが拒否されています。";
+"Microphone access is required to record video with sound." = "音声付きの動画を撮影するには、マイクへのアクセスが必要です。";
+"Permission to add videos to Photos is denied." = "写真への動画追加が許可されていません。";
+"Change app language in iOS Settings" = "iOSの設定でアプリの言語を変更";
+"Recording saved to Photos." = "録画を写真に保存しました。";
+"Video kept in the app but not added to Photos: %@" = "動画はアプリ内に保存されましたが、写真には追加されませんでした：%@";
+
+/* Localized interface and service messages (1.1 build 3) */
+"No camera is available." = "利用できるカメラがありません。";
+"The camera could not be configured." = "カメラを設定できませんでした。";
+"Video recording is unavailable." = "動画を撮影できません。";
+"The recorded video is empty or unreadable." = "撮影した動画が空か、読み取れません。";
+"No compatible audio input is available." = "対応する音声入力がありません。";
+"EVP recording did not start." = "EVP録音を開始できませんでした。";
+"No audio was captured. Check the microphone input in the simulator's I/O menu." = "音声を録音できませんでした。シミュレータのI/Oメニューでマイク入力を確認してください。";
+"White noise was interrupted by an audio configuration change: %@" = "音声設定の変更によりホワイトノイズが中断されました：%@";
+"The EVP session could not resume: %@" = "EVPセッションを再開できませんでした：%@";
+"The magnetometer or accelerometer is unavailable." = "磁力計または加速度センサーを利用できません。";
+"Lexicon not found for language %@." = "言語%@の辞書が見つかりません。";
+"No compatible voice stations were found." = "対応する音声放送局が見つかりませんでした。";
+"The radio station service returned an invalid response." = "ラジオ局サービスから無効な応答が返されました。";
+"Recording saved" = "録画を保存しました";
+"Error" = "エラー";
+"RECORDINGS" = "録画一覧";
+"No recordings" = "録画はありません";
+"Delete this EVP recording?" = "このEVP録音を削除しますか？";
+"Delete this video from the app?" = "この動画をアプリから削除しますか？";
+"Delete" = "削除";
+"Cancel" = "キャンセル";
+"WHITE NOISE VOLUME" = "ホワイトノイズ音量";
+"REV" = "逆順";
+"FWD" = "正順";
+"REVERSE" = "逆方向";
+"FORWARD" = "順方向";
+"[SENSOR ACTIVITY]: %@" = "[センサーの反応]：%@";
+"Next station…" = "次の放送局…";
+"Audio output is temporarily in use by the system. Close Siri or end the current call, then try again." = "音声出力は一時的にシステムが使用しています。Siriを終了するか通話を終了してから、もう一度お試しください。";

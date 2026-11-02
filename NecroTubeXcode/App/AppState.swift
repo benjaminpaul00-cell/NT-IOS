@@ -28,12 +28,9 @@ final class AppState: ObservableObject {
             }
         }
     }
-    @Published var appLanguage: AppLanguage {
-        didSet {
-            UserDefaults.standard.set(appLanguage.rawValue, forKey: "app.language")
-            AnalyticsManager.shared.logLanguageSelected(appLanguage.rawValue)
-        }
-    }
+    // Use the same localization as iOS permission dialogs. A SwiftUI locale
+    // override alone cannot change the language of those system dialogs.
+    @Published private(set) var appLanguage: AppLanguage
     @Published var lexiconLanguage: AppLanguage {
         didSet {
             UserDefaults.standard.set(lexiconLanguage.rawValue, forKey: "lexicon.language")
@@ -54,8 +51,7 @@ final class AppState: ObservableObject {
 
     init() {
         let defaults = UserDefaults.standard
-        let storedAppLanguage = defaults.string(forKey: "app.language")
-            .flatMap(AppLanguage.init(rawValue:)) ?? .english
+        let storedAppLanguage = AppLanguage.systemLanguage
         let storedLexiconLanguage = defaults.string(forKey: "lexicon.language")
             .flatMap(AppLanguage.init(rawValue:)) ?? .english
         appLanguage = storedAppLanguage
@@ -84,5 +80,12 @@ final class AppState: ObservableObject {
             history: history,
             speech: speech
         )
+    }
+
+    func refreshAppLanguage() {
+        let language = AppLanguage.systemLanguage
+        guard appLanguage != language else { return }
+        appLanguage = language
+        AnalyticsManager.shared.logLanguageSelected(language.rawValue)
     }
 }

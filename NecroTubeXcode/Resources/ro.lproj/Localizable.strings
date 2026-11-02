@@ -119,3 +119,43 @@
 "AUDIO LEVEL" = "NIVEL AUDIO";
 "NECROTUBE PREMIUM" = "NECROTUBE PREMIUM";
 "The native iOS service for this feature has not been implemented yet." = "Serviciul iOS nativ pentru această funcție nu a fost încă implementat.";
+
+/* Permissions and system language settings */
+"Camera access is denied." = "Accesul la cameră a fost refuzat.";
+"Microphone access is denied." = "Accesul la microfon a fost refuzat.";
+"Microphone access is required to record video with sound." = "Accesul la microfon este necesar pentru a înregistra videoclipuri cu sunet.";
+"Permission to add videos to Photos is denied." = "Permisiunea de a adăuga videoclipuri în Poze a fost refuzată.";
+"Change app language in iOS Settings" = "Schimbă limba aplicației în configurările iOS";
+"Recording saved to Photos." = "Înregistrare salvată în Poze.";
+"Video kept in the app but not added to Photos: %@" = "Videoclip păstrat în aplicație, dar neadăugat în Poze: %@";
+
+/* Localized interface and service messages (1.1 build 3) */
+"No camera is available." = "Nu este disponibilă nicio cameră.";
+"The camera could not be configured." = "Camera nu a putut fi configurată.";
+"Video recording is unavailable." = "Înregistrarea video nu este disponibilă.";
+"The recorded video is empty or unreadable." = "Videoclipul înregistrat este gol sau nu poate fi citit.";
+"No compatible audio input is available." = "Nu este disponibilă nicio intrare audio compatibilă.";
+"EVP recording did not start." = "Înregistrarea EVP nu a început.";
+"No audio was captured. Check the microphone input in the simulator's I/O menu." = "Nu a fost captat niciun sunet. Verifică intrarea microfonului în meniul I/O al simulatorului.";
+"White noise was interrupted by an audio configuration change: %@" = "Zgomotul alb a fost întrerupt de o modificare a configurației audio: %@";
+"The EVP session could not resume: %@" = "Sesiunea EVP nu a putut fi reluată: %@";
+"The magnetometer or accelerometer is unavailable." = "Magnetometrul sau accelerometrul nu este disponibil.";
+"Lexicon not found for language %@." = "Nu a fost găsit lexicul pentru limba %@.";
+"No compatible voice stations were found." = "Nu au fost găsite posturi vocale compatibile.";
+"The radio station service returned an invalid response." = "Serviciul de posturi radio a returnat un răspuns nevalid.";
+"Recording saved" = "Înregistrare salvată";
+"Error" = "Eroare";
+"RECORDINGS" = "ÎNREGISTRĂRI";
+"No recordings" = "Nicio înregistrare";
+"Delete this EVP recording?" = "Ștergi această înregistrare EVP?";
+"Delete this video from the app?" = "Ștergi acest videoclip din aplicație?";
+"Delete" = "Șterge";
+"Cancel" = "Anulează";
+"WHITE NOISE VOLUME" = "VOLUMUL ZGOMOTULUI ALB";
+"REV" = "ÎNAP.";
+"FWD" = "ÎNAINTE";
+"REVERSE" = "ÎNAPOI";
+"FORWARD" = "ÎNAINTE";
+"[SENSOR ACTIVITY]: %@" = "[ACTIVITATEA SENZORILOR]: %@";
+"Next station…" = "Postul următor…";
+"Audio output is temporarily in use by the system. Close Siri or end the current call, then try again." = "Ieșirea audio este utilizată temporar de sistem. Închide Siri sau încheie apelul curent, apoi încearcă din nou.";

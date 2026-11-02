@@ -133,7 +133,7 @@ private struct SpiritBoxCanvas: View {
                     HStack {
                         Text("WHITE NOISE").foregroundStyle(.white)
                         Spacer()
-                        Text(radio.whiteNoiseEnabled ? "ON" : "OFF")
+                    Text(LocalizedStringKey(radio.whiteNoiseEnabled ? "ON" : "OFF"))
                             .foregroundStyle(radio.whiteNoiseEnabled ? green : .gray)
                     }
                     .font(.system(size: 11, weight: .bold, design: .monospaced))
@@ -252,7 +252,7 @@ private struct SpiritBoxCanvas: View {
                     Circle().fill(enabled ? green : .gray).frame(width: 15, height: 15)
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("\(title) \(enabled ? "ON" : "OFF")")
+                .accessibilityLabel(Text(LocalizedStringKey(title)) + Text(verbatim: " ") + Text(LocalizedStringKey(enabled ? "ON" : "OFF")))
             }
             .font(.system(size: 11, weight: .semibold, design: .monospaced))
             .foregroundStyle(enabled ? green : .gray)
@@ -284,13 +284,13 @@ private struct SpiritBoxCanvas: View {
             } label: {
                 HStack(spacing: 5) {
                     Image(systemName: radio.channelReversed[index] ? "arrow.left" : "arrow.right")
-                    Text(radio.channelReversed[index] ? "REV" : "FWD")
+                    Text(LocalizedStringKey(radio.channelReversed[index] ? "REV" : "FWD"))
                 }
                 .font(.system(size: 8, weight: .bold, design: .monospaced))
                 .foregroundStyle(green)
             }
             .buttonStyle(.plain)
-            .accessibilityLabel(radio.channelReversed[index] ? "REVERSE" : "FORWARD")
+            .accessibilityLabel(Text(LocalizedStringKey(radio.channelReversed[index] ? "REVERSE" : "FORWARD")))
 
             Slider(
                 value: Binding(

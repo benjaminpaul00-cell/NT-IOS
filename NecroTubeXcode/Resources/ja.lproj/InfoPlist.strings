@@ -1,0 +1,4 @@
+/* System permission purpose strings. */
+"NSCameraUsageDescription" = "NecroTubeはカメラを使用して、ライブ映像の表示、SLSモードでの身体の姿勢検出、調査動画の撮影を行います。";
+"NSMicrophoneUsageDescription" = "NecroTubeはマイクを使用して、調査中の音量測定、EVP音声の録音、動画の音声収録を行います。";
+"NSPhotoLibraryAddUsageDescription" = "NecroTubeは撮影した調査動画を写真ライブラリに追加します。";

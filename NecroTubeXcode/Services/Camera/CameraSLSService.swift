@@ -19,13 +19,13 @@ final class CameraSLSService: NSObject, ObservableObject, CameraServicing {
 
         var errorDescription: String? {
             switch self {
-            case .permissionDenied: "L’accès à la caméra est refusé."
-            case .unavailable: "Aucune caméra n’est disponible."
-            case .configurationFailed: "La caméra n’a pas pu être configurée."
-            case .recordingUnavailable: "L’enregistrement vidéo n’est pas disponible."
-            case .microphonePermissionDenied: "L’accès au microphone est requis pour enregistrer la vidéo avec le son."
-            case .photosPermissionDenied: "L’accès à Photos est refusé."
-            case .invalidRecording: "La vidéo enregistrée est vide ou illisible."
+            case .permissionDenied: String(localized: "Camera access is denied.")
+            case .unavailable: String(localized: "No camera is available.")
+            case .configurationFailed: String(localized: "The camera could not be configured.")
+            case .recordingUnavailable: String(localized: "Video recording is unavailable.")
+            case .microphonePermissionDenied: String(localized: "Microphone access is required to record video with sound.")
+            case .photosPermissionDenied: String(localized: "Permission to add videos to Photos is denied.")
+            case .invalidRecording: String(localized: "The recorded video is empty or unreadable.")
             }
         }
     }
@@ -387,9 +387,9 @@ extension CameraSLSService: AVCaptureFileOutputRecordingDelegate {
                 self.refreshRecordings()
                 do {
                     try await self.saveToPhotos(outputFileURL)
-                    self.recordingMessage = "Enregistrement sauvegardé dans Photos."
+                    self.recordingMessage = String(localized: "Recording saved to Photos.")
                 } catch {
-                    self.recordingError = "Vidéo conservée dans l’app, mais non ajoutée à Photos : \(error.localizedDescription)"
+                    self.recordingError = String(format: String(localized: "Video kept in the app but not added to Photos: %@"), error.localizedDescription)
                 }
             }
             self.recordingStopContinuation?.resume()

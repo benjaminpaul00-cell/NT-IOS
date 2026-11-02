@@ -18,7 +18,7 @@ struct InvestigationHeader: View {
                     .accessibilityAddTraits(.isHeader)
                 HStack(spacing: 6) {
                     Circle().fill(isRunning ? NecroTheme.accent : NecroTheme.muted).frame(width: 6, height: 6)
-                    Text(isRunning ? "INVESTIGATION ACTIVE" : "SYSTEM STANDBY")
+                    Text(LocalizedStringKey(isRunning ? "INVESTIGATION ACTIVE" : "SYSTEM STANDBY"))
                         .font(.caption2.weight(.bold))
                         .tracking(1.2)
                         .foregroundStyle(isRunning ? NecroTheme.accent : NecroTheme.muted)

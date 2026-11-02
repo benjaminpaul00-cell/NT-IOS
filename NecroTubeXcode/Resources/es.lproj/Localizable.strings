@@ -119,3 +119,43 @@
 "AUDIO LEVEL" = "NIVEL DE AUDIO";
 "NECROTUBE PREMIUM" = "NECROTUBE PREMIUM";
 "The native iOS service for this feature has not been implemented yet." = "El servicio nativo de iOS para esta función todavía no se ha implementado.";
+
+/* Permissions and system language settings */
+"Camera access is denied." = "Se ha denegado el acceso a la cámara.";
+"Microphone access is denied." = "Se ha denegado el acceso al micrófono.";
+"Microphone access is required to record video with sound." = "Se requiere acceso al micrófono para grabar vídeo con sonido.";
+"Permission to add videos to Photos is denied." = "Se ha denegado el permiso para añadir vídeos a Fotos.";
+"Change app language in iOS Settings" = "Cambiar el idioma de la app en Ajustes de iOS";
+"Recording saved to Photos." = "Grabación guardada en Fotos.";
+"Video kept in the app but not added to Photos: %@" = "Vídeo conservado en la app, pero no añadido a Fotos: %@";
+
+/* Localized interface and service messages (1.1 build 3) */
+"No camera is available." = "No hay ninguna cámara disponible.";
+"The camera could not be configured." = "No se ha podido configurar la cámara.";
+"Video recording is unavailable." = "La grabación de vídeo no está disponible.";
+"The recorded video is empty or unreadable." = "El vídeo grabado está vacío o no se puede leer.";
+"No compatible audio input is available." = "No hay ninguna entrada de audio compatible disponible.";
+"EVP recording did not start." = "La grabación EVP no se ha iniciado.";
+"No audio was captured. Check the microphone input in the simulator's I/O menu." = "No se ha capturado audio. Comprueba la entrada del micrófono en el menú I/O del simulador.";
+"White noise was interrupted by an audio configuration change: %@" = "El ruido blanco se ha interrumpido por un cambio de configuración de audio: %@";
+"The EVP session could not resume: %@" = "No se ha podido reanudar la sesión EVP: %@";
+"The magnetometer or accelerometer is unavailable." = "El magnetómetro o el acelerómetro no está disponible.";
+"Lexicon not found for language %@." = "No se ha encontrado el léxico para el idioma %@.";
+"No compatible voice stations were found." = "No se han encontrado emisoras de voz compatibles.";
+"The radio station service returned an invalid response." = "El servicio de emisoras de radio ha devuelto una respuesta no válida.";
+"Recording saved" = "Grabación guardada";
+"Error" = "Error";
+"RECORDINGS" = "GRABACIONES";
+"No recordings" = "No hay grabaciones";
+"Delete this EVP recording?" = "¿Eliminar esta grabación EVP?";
+"Delete this video from the app?" = "¿Eliminar este vídeo de la aplicación?";
+"Delete" = "Eliminar";
+"Cancel" = "Cancelar";
+"WHITE NOISE VOLUME" = "VOLUMEN DEL RUIDO BLANCO";
+"REV" = "INV.";
+"FWD" = "AV.";
+"REVERSE" = "SENTIDO INVERSO";
+"FORWARD" = "SENTIDO NORMAL";
+"[SENSOR ACTIVITY]: %@" = "[ACTIVIDAD DE LOS SENSORES]: %@";
+"Next station…" = "Siguiente emisora…";
+"Audio output is temporarily in use by the system. Close Siri or end the current call, then try again." = "El sistema está utilizando temporalmente la salida de audio. Cierra Siri o finaliza la llamada actual y vuelve a intentarlo.";

@@ -56,7 +56,7 @@ struct InvestigationActions: View {
             Button(action: onToggleSession) {
                 VStack(spacing: 4) {
                     Image(systemName: isRunning ? "stop.fill" : "play.fill").font(.title2)
-                    Text(isRunning ? "STOP" : "START").font(.caption.weight(.black)).tracking(1.5)
+                    Text(LocalizedStringKey(isRunning ? "STOP" : "START")).font(.caption.weight(.black)).tracking(1.5)
                 }
                 .frame(maxWidth: .infinity, minHeight: 64)
                 .foregroundStyle(isRunning ? Color.white : Color.black)

@@ -45,26 +45,26 @@
 "SLS MODE" = "MODALITÀ SLS";
 "VISUAL TRACKING ON" = "TRACCIAMENTO VISIVO ATTIVO";
 "VISUAL TRACKING" = "TRACCIAMENTO VISIVO";
-"CAMERA MODES" = "MODALITÀ CAMERA";
+"CAMERA MODES" = "MODALITÀ FOTOCAMERA";
 "NIGHT VISION • SPECTRAL • FILTERS" = "VISIONE NOTTURNA • SPETTRALE • FILTRI";
 "MICROPHONE UNAVAILABLE — SENSORS ACTIVE" = "MICROFONO NON DISPONIBILE — SENSORI ATTIVI";
 
 /* Camera */
-"CAMERA SETTINGS" = "IMPOSTAZIONI CAMERA";
-"CAMERA SENSORS" = "SENSORI CAMERA";
+"CAMERA SETTINGS" = "IMPOSTAZIONI FOTOCAMERA";
+"CAMERA SENSORS" = "SENSORI FOTOCAMERA";
 "NORMAL" = "NORMALE";
 "NIGHT VISION" = "VISIONE NOTTURNA";
 "THERMAL" = "TERMICA";
 "SPECTRAL" = "SPETTRALE";
-"CAMERA" = "CAMERA";
-"FRONT CAMERA" = "CAMERA FRONTALE";
-"PHYSICAL CAMERA UNAVAILABLE ON THIS SIMULATOR" = "CAMERA FISICA NON DISPONIBILE SU QUESTO SIMULATORE";
-"PHYSICAL CAMERA UNAVAILABLE" = "CAMERA FISICA NON DISPONIBILE";
-"CAMERA PERMISSION REQUIRED" = "AUTORIZZAZIONE CAMERA NECESSARIA";
+"CAMERA" = "FOTOCAMERA";
+"FRONT CAMERA" = "FOTOCAMERA FRONTALE";
+"PHYSICAL CAMERA UNAVAILABLE ON THIS SIMULATOR" = "FOTOCAMERA FISICA NON DISPONIBILE SU QUESTO SIMULATORE";
+"PHYSICAL CAMERA UNAVAILABLE" = "FOTOCAMERA FISICA NON DISPONIBILE";
+"CAMERA PERMISSION REQUIRED" = "AUTORIZZAZIONE FOTOCAMERA NECESSARIA";
 "OPTICAL SENSORS READY" = "SENSORI OTTICI PRONTI";
 "OPTICAL SENSORS ACTIVE" = "SENSORI OTTICI ATTIVI";
-"CAMERA ERROR" = "ERRORE CAMERA";
-"The iOS Simulator does not provide a physical camera. Use an iPhone for video and SLS." = "Il simulatore iOS non dispone di una camera fisica. Usa un iPhone per il video e SLS.";
+"CAMERA ERROR" = "ERRORE FOTOCAMERA";
+"The iOS Simulator does not provide a physical camera. Use an iPhone for video and SLS." = "Il simulatore iOS non dispone di una fotocamera fisica. Usa un iPhone per il video e SLS.";
 
 /* Spirit Box */
 "STATIONS" = "STAZIONI";
@@ -119,3 +119,43 @@
 "AUDIO LEVEL" = "LIVELLO AUDIO";
 "NECROTUBE PREMIUM" = "NECROTUBE PREMIUM";
 "The native iOS service for this feature has not been implemented yet." = "Il servizio iOS nativo per questa funzione non è ancora stato implementato.";
+
+/* Permissions and system language settings */
+"Camera access is denied." = "L’accesso alla fotocamera è stato negato.";
+"Microphone access is denied." = "L’accesso al microfono è stato negato.";
+"Microphone access is required to record video with sound." = "È necessario l’accesso al microfono per registrare video con audio.";
+"Permission to add videos to Photos is denied." = "L’autorizzazione ad aggiungere video a Foto è stata negata.";
+"Change app language in iOS Settings" = "Cambia la lingua dell’app nelle impostazioni iOS";
+"Recording saved to Photos." = "Registrazione salvata in Foto.";
+"Video kept in the app but not added to Photos: %@" = "Video conservato nell’app, ma non aggiunto a Foto: %@";
+
+/* Localized interface and service messages (1.1 build 3) */
+"No camera is available." = "Nessuna fotocamera disponibile.";
+"The camera could not be configured." = "Non è stato possibile configurare la fotocamera.";
+"Video recording is unavailable." = "La registrazione video non è disponibile.";
+"The recorded video is empty or unreadable." = "Il video registrato è vuoto o illeggibile.";
+"No compatible audio input is available." = "Nessun ingresso audio compatibile disponibile.";
+"EVP recording did not start." = "La registrazione EVP non è iniziata.";
+"No audio was captured. Check the microphone input in the simulator's I/O menu." = "Non è stato acquisito alcun suono. Controlla l’ingresso del microfono nel menu I/O del simulatore.";
+"White noise was interrupted by an audio configuration change: %@" = "Il rumore bianco è stato interrotto da una modifica della configurazione audio: %@";
+"The EVP session could not resume: %@" = "Non è stato possibile riprendere la sessione EVP: %@";
+"The magnetometer or accelerometer is unavailable." = "Il magnetometro o l’accelerometro non è disponibile.";
+"Lexicon not found for language %@." = "Lessico non trovato per la lingua %@.";
+"No compatible voice stations were found." = "Non sono state trovate stazioni vocali compatibili.";
+"The radio station service returned an invalid response." = "Il servizio delle stazioni radio ha restituito una risposta non valida.";
+"Recording saved" = "Registrazione salvata";
+"Error" = "Errore";
+"RECORDINGS" = "REGISTRAZIONI";
+"No recordings" = "Nessuna registrazione";
+"Delete this EVP recording?" = "Eliminare questa registrazione EVP?";
+"Delete this video from the app?" = "Eliminare questo video dall’app?";
+"Delete" = "Elimina";
+"Cancel" = "Annulla";
+"WHITE NOISE VOLUME" = "VOLUME DEL RUMORE BIANCO";
+"REV" = "IND.";
+"FWD" = "AV.";
+"REVERSE" = "INDIETRO";
+"FORWARD" = "AVANTI";
+"[SENSOR ACTIVITY]: %@" = "[ATTIVITÀ DEI SENSORI]: %@";
+"Next station…" = "Stazione successiva…";
+"Audio output is temporarily in use by the system. Close Siri or end the current call, then try again." = "L’uscita audio è temporaneamente utilizzata dal sistema. Chiudi Siri o termina la chiamata in corso, poi riprova.";

@@ -47,14 +47,14 @@ struct EVPRecorderView: View {
             Text(audio.errorMessage ?? "")
         }
         .confirmationDialog(
-            "Supprimer cet enregistrement EVP ?",
+            "Delete this EVP recording?",
             isPresented: Binding(
                 get: { recordingToDelete != nil },
                 set: { if !$0 { recordingToDelete = nil } }
             ),
             titleVisibility: .visible
         ) {
-            Button("Supprimer", role: .destructive) {
+            Button("Delete", role: .destructive) {
                 guard let recordingToDelete else { return }
                 do {
                     try audio.deleteRecording(at: recordingToDelete)
@@ -64,7 +64,7 @@ struct EVPRecorderView: View {
                 }
                 self.recordingToDelete = nil
             }
-            Button("Annuler", role: .cancel) {
+            Button("Cancel", role: .cancel) {
                 recordingToDelete = nil
             }
         }
@@ -336,7 +336,7 @@ private struct EVPCanvas: View {
     private func infoCard(_ title: String, _ value: String, color: Color) -> some View {
         VStack(alignment: .leading, spacing: 7) {
             Text(LocalizedStringKey(title)).font(.system(size: 7, design: .monospaced))
-            Text(value).font(.system(size: 10, weight: .bold, design: .monospaced))
+            Text(LocalizedStringKey(value)).font(.system(size: 10, weight: .bold, design: .monospaced))
                 .foregroundStyle(color).lineLimit(1).minimumScaleFactor(0.6)
         }
         .padding(9).frame(width: 90, height: 62, alignment: .leading)

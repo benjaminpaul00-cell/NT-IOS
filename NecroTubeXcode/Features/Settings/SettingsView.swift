@@ -1,6 +1,8 @@
 import SwiftUI
+import UIKit
 
 struct SettingsView: View {
+    @Environment(\.openURL) private var openURL
     @EnvironmentObject private var appState: AppState
     @ObservedObject var history: SessionHistoryStore
     let lexicon: LexiconEngine
@@ -16,10 +18,18 @@ struct SettingsView: View {
                     Text("Settings")
                         .font(.system(size: 22, design: .monospaced))
                         .foregroundStyle(NecroTheme.accent)
-                    LanguageSection(
-                        title: "APP LANGUAGE",
-                        selection: appLanguageBinding
-                    )
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text("APP LANGUAGE")
+                            .font(.caption.monospaced())
+                            .foregroundStyle(.secondary)
+                        Button {
+                            if let url = URL(string: UIApplication.openSettingsURLString) {
+                                openURL(url)
+                            }
+                        } label: {
+                            SettingsWideButton(title: "Change app language in iOS Settings", color: NecroTheme.accent)
+                        }
+                    }
                     Divider()
                     LanguageSection(
                         title: "LEXICON LANGUAGE",
@@ -54,13 +64,6 @@ struct SettingsView: View {
 
     private var selectedLexiconLanguage: AppLanguage {
         appState.lexiconLanguage
-    }
-
-    private var appLanguageBinding: Binding<String> {
-        Binding(
-            get: { appState.appLanguage.rawValue },
-            set: { appState.appLanguage = AppLanguage(rawValue: $0) ?? .english }
-        )
     }
 
     private var lexiconLanguageBinding: Binding<String> {

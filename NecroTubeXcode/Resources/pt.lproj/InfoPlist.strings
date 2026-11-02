@@ -1,0 +1,4 @@
+/* System permission purpose strings. */
+"NSCameraUsageDescription" = "O NecroTube usa a câmera para mostrar vídeo ao vivo, detectar poses corporais no modo SLS e gravar seus vídeos de investigação.";
+"NSMicrophoneUsageDescription" = "O NecroTube usa o microfone para medir os níveis sonoros durante as investigações e gravar áudio EVP e o som dos vídeos.";
+"NSPhotoLibraryAddUsageDescription" = "O NecroTube adiciona os vídeos de investigação que você grava à sua biblioteca de fotos.";

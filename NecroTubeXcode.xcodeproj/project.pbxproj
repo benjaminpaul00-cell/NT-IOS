@@ -262,24 +262,25 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 2Q9PS48BXU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = NecroTube;
-				INFOPLIST_KEY_NSCameraUsageDescription = "NecroTube utilise la camera pour les investigations paranormales et la detection SLS";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "NecroTube utilise le microphonepour enregistrer et analyser les phenomenes audio EVP";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "NecroTube ajoute vos enregistrements video a votre phototheque apres votre authorisation.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "NecroTube uses the camera to display live video, detect body poses in SLS mode, and record your investigation videos.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "NecroTube uses the microphone to measure audio levels during investigations and record EVP audio and video sound.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "NecroTube adds the investigation videos you record to your photo library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIPrefersShowingLanguageSettings = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.corticalabs.NecroTubeXcode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -298,24 +299,25 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 2Q9PS48BXU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = NecroTube;
-				INFOPLIST_KEY_NSCameraUsageDescription = "NecroTube utilise la camera pour les investigations paranormales et la detection SLS";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "NecroTube utilise le microphonepour enregistrer et analyser les phenomenes audio EVP";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "NecroTube ajoute vos enregistrements video a votre phototheque apres votre authorisation.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "NecroTube uses the camera to display live video, detect body poses in SLS mode, and record your investigation videos.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "NecroTube uses the microphone to measure audio levels during investigations and record EVP audio and video sound.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "NecroTube adds the investigation videos you record to your photo library.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIPrefersShowingLanguageSettings = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.corticalabs.NecroTubeXcode;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;

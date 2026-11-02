@@ -1,0 +1,4 @@
+/* System permission purpose strings. */
+"NSCameraUsageDescription" = "يستخدم NecroTube الكاميرا لعرض الفيديو المباشر واكتشاف وضعيات الجسم في وضع SLS وتسجيل مقاطع فيديو التحقيق الخاصة بك.";
+"NSMicrophoneUsageDescription" = "يستخدم NecroTube الميكروفون لقياس مستويات الصوت أثناء التحقيقات وتسجيل صوت EVP وصوت مقاطع الفيديو.";
+"NSPhotoLibraryAddUsageDescription" = "يضيف NecroTube مقاطع فيديو التحقيق التي تسجلها إلى مكتبة الصور الخاصة بك.";

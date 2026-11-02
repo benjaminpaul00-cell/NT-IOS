@@ -119,3 +119,43 @@
 "AUDIO LEVEL" = "កម្រិតសំឡេង";
 "NECROTUBE PREMIUM" = "NECROTUBE ពិសេស";
 "The native iOS service for this feature has not been implemented yet." = "សេវា iOS ដើមសម្រាប់មុខងារនេះមិនទាន់បានអនុវត្តទេ។";
+
+/* Permissions and system language settings */
+"Camera access is denied." = "ការចូលប្រើកាមេរ៉ាត្រូវបានបដិសេធ។";
+"Microphone access is denied." = "ការចូលប្រើមីក្រូហ្វូនត្រូវបានបដិសេធ។";
+"Microphone access is required to record video with sound." = "ត្រូវការការអនុញ្ញាតប្រើមីក្រូហ្វូនដើម្បីថតវីដេអូជាមួយសំឡេង។";
+"Permission to add videos to Photos is denied." = "ការអនុញ្ញាតបន្ថែមវីដេអូទៅរូបថតត្រូវបានបដិសេធ។";
+"Change app language in iOS Settings" = "ប្តូរភាសាកម្មវិធីក្នុងការកំណត់ iOS";
+"Recording saved to Photos." = "បានរក្សាទុកវីដេអូក្នុងរូបថត។";
+"Video kept in the app but not added to Photos: %@" = "វីដេអូត្រូវបានរក្សាទុកក្នុងកម្មវិធី ប៉ុន្តែមិនបានបន្ថែមទៅរូបថត៖ %@";
+
+/* Localized interface and service messages (1.1 build 3) */
+"No camera is available." = "មិនមានកាមេរ៉ាដែលអាចប្រើបានទេ។";
+"The camera could not be configured." = "មិនអាចកំណត់រចនាសម្ព័ន្ធកាមេរ៉ាបានទេ។";
+"Video recording is unavailable." = "មិនអាចថតវីដេអូបានទេ។";
+"The recorded video is empty or unreadable." = "វីដេអូដែលបានថតគឺទទេ ឬមិនអាចអានបាន។";
+"No compatible audio input is available." = "មិនមានឧបករណ៍បញ្ចូលសំឡេងដែលត្រូវគ្នាទេ។";
+"EVP recording did not start." = "ការថតសំឡេង EVP មិនបានចាប់ផ្តើមទេ។";
+"No audio was captured. Check the microphone input in the simulator's I/O menu." = "មិនបានថតសំឡេងទេ។ សូមពិនិត្យការបញ្ចូលមីក្រូហ្វូនក្នុងម៉ឺនុយ I/O របស់កម្មវិធីក្លែងធ្វើ។";
+"White noise was interrupted by an audio configuration change: %@" = "សំឡេងរំខានពណ៌សត្រូវបានផ្អាកដោយការផ្លាស់ប្តូរការកំណត់សំឡេង៖ %@";
+"The EVP session could not resume: %@" = "មិនអាចបន្តសម័យ EVP បានទេ៖ %@";
+"The magnetometer or accelerometer is unavailable." = "មិនអាចប្រើឧបករណ៍វាស់ដែនម៉ាញេទិច ឬឧបករណ៍វាស់សំទុះបានទេ។";
+"Lexicon not found for language %@." = "រកមិនឃើញវចនានុក្រមសម្រាប់ភាសា %@ ទេ។";
+"No compatible voice stations were found." = "រកមិនឃើញស្ថានីយ៍សំឡេងដែលត្រូវគ្នាទេ។";
+"The radio station service returned an invalid response." = "សេវាស្ថានីយ៍វិទ្យុបានផ្ញើការឆ្លើយតបមិនត្រឹមត្រូវ។";
+"Recording saved" = "បានរក្សាទុកការថត";
+"Error" = "កំហុស";
+"RECORDINGS" = "ការថត";
+"No recordings" = "មិនមានការថតទេ";
+"Delete this EVP recording?" = "លុបការថតសំឡេង EVP នេះឬ?";
+"Delete this video from the app?" = "លុបវីដេអូនេះចេញពីកម្មវិធីឬ?";
+"Delete" = "លុប";
+"Cancel" = "បោះបង់";
+"WHITE NOISE VOLUME" = "កម្រិតសំឡេងរំខានពណ៌ស";
+"REV" = "បញ្ច្រាស";
+"FWD" = "ទៅមុខ";
+"REVERSE" = "ទិសបញ្ច្រាស";
+"FORWARD" = "ទិសទៅមុខ";
+"[SENSOR ACTIVITY]: %@" = "[សកម្មភាពឧបករណ៍ចាប់សញ្ញា]៖ %@";
+"Next station…" = "ស្ថានីយ៍បន្ទាប់…";
+"Audio output is temporarily in use by the system. Close Siri or end the current call, then try again." = "ប្រព័ន្ធកំពុងប្រើការបញ្ចេញសំឡេងជាបណ្តោះអាសន្ន។ សូមបិទ Siri ឬបញ្ចប់ការហៅបច្ចុប្បន្ន រួចព្យាយាមម្តងទៀត។";

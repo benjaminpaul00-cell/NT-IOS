@@ -14,7 +14,7 @@ final class SensorFusionEngine: ObservableObject, SensorFusionServicing {
     enum SensorError: LocalizedError {
         case unavailable
 
-        var errorDescription: String? { "Le magnétomètre ou l’accéléromètre est indisponible." }
+        var errorDescription: String? { String(localized: "The magnetometer or accelerometer is unavailable.") }
     }
 
     @Published private(set) var latestSample = SensorFusionSample(

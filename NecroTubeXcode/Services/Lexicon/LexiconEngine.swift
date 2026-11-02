@@ -7,7 +7,7 @@ actor LexiconEngine: LexiconServicing {
         var errorDescription: String? {
             switch self {
             case .resourceMissing(let language):
-                "Lexique introuvable pour la langue \(language.rawValue)."
+                String(format: String(localized: "Lexicon not found for language %@."), language.rawValue)
             }
         }
     }
