@@ -1,0 +1,320 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function player() {
+      return request.auth != null
+        && request.auth.token.firebase.sign_in_provider in ['google.com', 'apple.com'];
+    }
+    function validProfile(d) {
+      let fields = ['username', 'usernameKey', 'avatarId', 'catalogVersion', 'createdAt', 'updatedAt'];
+      return d.keys().hasAll(fields) && d.keys().hasOnly(fields)
+        && d.username is string && d.username.matches('[A-Za-z0-9_]{3,20}')
+        && d.usernameKey == d.username.lower()
+        && !(d.usernameKey in ['admin', 'administrator', 'moderateur', 'moderator', 'support', 'system', 'google', 'apple', 'dominoes'])
+        && d.avatarId is string && d.avatarId.matches('classic_(0[1-9]|[1-4][0-9]|50)')
+        && d.catalogVersion is int && d.catalogVersion == 1
+        && d.createdAt is timestamp && d.updatedAt == request.time;
+    }
+    match /profiles/{uid} {
+      allow get: if player();
+      allow create: if player() && request.auth.uid == uid
+        && validProfile(request.resource.data)
+        && request.resource.data.createdAt == request.time
+        && getAfter(/databases/$(database)/documents/usernames/$(request.resource.data.usernameKey)).data.uid == uid;
+      allow update: if player() && request.auth.uid == uid
+        && validProfile(request.resource.data)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['avatarId', 'updatedAt'])
+        && getAfter(/databases/$(database)/documents/usernames/$(resource.data.usernameKey)).data.uid == uid;
+      allow list, delete: if false;
+    }
+    match /usernames/{name} {
+      // Exact reads support a transaction. The registry contains no email or token.
+      allow get: if player();
+      allow create: if player() && name.matches('[a-z0-9_]{3,20}')
+        && request.resource.data.keys().hasAll(['uid'])
+        && request.resource.data.keys().hasOnly(['uid'])
+        && request.resource.data.uid == request.auth.uid
+        && getAfter(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.usernameKey == name;
+      // Immutable claims make name takeover and reassignments impossible for clients.
+      allow list, update, delete: if false;
+    }
+    function registered() { return player() && exists(/databases/$(database)/documents/profiles/$(request.auth.uid)); }
+    function roomData(id) { return get(/databases/$(database)/documents/rooms/$(id)).data; }
+    function member(id) { return player() && request.auth.uid in roomData(id).members; }
+    function host(id) { return member(id) && roomData(id).host == request.auth.uid; }
+    function roomSchema(d) {
+      return d.keys().hasAll(['protocol','host','members','names','avatars','capacity','status','discoverable','random','revision','createdAt','updatedAt','expiresAt'])
+        && d.keys().hasOnly(['protocol','host','members','names','avatars','capacity','status','discoverable','random','revision','createdAt','updatedAt','expiresAt','state'])
+        && d.protocol == 1 && d.host is string && d.members is list
+        && d.members.size() >= 1 && d.members.size() <= d.capacity
+        && d.members.toSet().size() == d.members.size() && d.members[0] == d.host
+        && d.capacity is int && d.capacity >= 2 && d.capacity <= 4
+        && d.names is map && d.avatars is map
+        && d.names.keys().toSet() == d.members.toSet() && d.avatars.keys().toSet() == d.members.toSet()
+        && d.status in ['waiting','playing','closed'] && d.discoverable is bool && d.random is bool
+        && (!d.discoverable || (d.random && d.status == 'waiting'))
+        && d.revision is int && d.revision >= 0
+        && d.createdAt is timestamp && d.updatedAt == request.time && d.expiresAt is timestamp;
+    }
+    function stateSchema(s,n) {
+      return s is map && s.keys().hasOnly(['protocol','matchId','round','target','block','scores','board','counts','stockCount','turn','passes','winner','award','finished','opening'])
+        && s.protocol == 1 && s.matchId is string && s.matchId.size() <= 64
+        && s.round is int && s.round > 0 && s.target == 100 && s.block == false
+        && s.scores is list && s.scores.size() == n && s.counts is list && s.counts.size() == n
+        && s.board is list && s.board.size() <= 28 && s.stockCount is int && s.stockCount >= 0 && s.stockCount <= 28
+        && s.turn is int && s.turn >= 0 && s.turn < n && s.winner is int && s.winner >= -1 && s.winner < n
+        && s.passes is int && s.award is int && s.finished is bool && s.opening is int;
+    }
+    function queuedRoomAvailable(code) {
+      let old = get(/databases/$(database)/documents/rooms/$(code)).data;
+      return old.status == 'waiting' && old.members.size() < old.capacity && old.expiresAt > request.time
+        && old.updatedAt > request.time - duration.value(100,'s');
+    }
+    function queueTarget(d,id) {
+      let target = getAfter(/databases/$(database)/documents/rooms/$(d.roomId)).data;
+      return d.keys().hasAll(['roomId','updatedAt']) && d.keys().hasOnly(['roomId','updatedAt']) && d.updatedAt == request.time
+        && target.host == request.auth.uid && target.createdAt == request.time && target.random == true && target.status == 'waiting'
+        && ((id == 'draw2' && target.capacity == 2) || (id == 'draw3' && target.capacity == 3) || (id == 'draw4' && target.capacity == 4));
+    }
+    match /matchmaking/{id} {
+      allow get: if registered();
+      allow create: if registered() && queueTarget(request.resource.data,id);
+      allow update: if registered() && !queuedRoomAvailable(resource.data.roomId) && queueTarget(request.resource.data,id);
+      allow list, delete: if false;
+    }
+    match /rooms/{id} {
+      allow get: if registered();
+      allow list: if registered() && resource.data.discoverable == true && request.query.limit <= 30;
+      allow create: if registered() && id.matches('[A-HJ-NP-Z2-9]{8}') && roomSchema(request.resource.data)
+        && request.resource.data.host == request.auth.uid
+        && request.resource.data.members == [request.auth.uid]
+        && request.resource.data.names[request.auth.uid] == get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.username
+        && request.resource.data.avatars[request.auth.uid] == get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.avatarId
+        && request.resource.data.status == 'waiting' && request.resource.data.revision == 0
+        && !('state' in request.resource.data) && request.resource.data.createdAt == request.time
+        && request.resource.data.expiresAt > request.time && request.resource.data.expiresAt <= request.time + duration.value(3,'h');
+      allow update: if registered() && roomSchema(request.resource.data) && (
+        // Joining is an append-only transaction, with identity taken from the saved profile.
+        (resource.data.status == 'waiting' && resource.data.expiresAt > request.time
+          && !(request.auth.uid in resource.data.members) && resource.data.members.size() < resource.data.capacity
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['members','names','avatars','updatedAt'])
+          && request.resource.data.members == resource.data.members.concat([request.auth.uid])
+          && request.resource.data.names.diff(resource.data.names).affectedKeys().hasOnly([request.auth.uid])
+          && request.resource.data.avatars.diff(resource.data.avatars).affectedKeys().hasOnly([request.auth.uid])
+          && request.resource.data.names[request.auth.uid] == get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.username
+          && request.resource.data.avatars[request.auth.uid] == get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.avatarId)
+        || (resource.data.host == request.auth.uid && resource.data.status != 'closed'
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['members','names','avatars','status','discoverable','revision','state','updatedAt'])
+          && (request.resource.data.members == resource.data.members || (resource.data.status == 'waiting' && request.resource.data.status == 'waiting'
+            && request.resource.data.members.toSet().difference(resource.data.members.toSet()).size() == 0))
+          && request.resource.data.names.diff(resource.data.names).changedKeys().size() == 0
+          && request.resource.data.names.diff(resource.data.names).addedKeys().size() == 0
+          && request.resource.data.avatars.diff(resource.data.avatars).changedKeys().size() == 0
+          && request.resource.data.avatars.diff(resource.data.avatars).addedKeys().size() == 0
+          && (request.resource.data.status == 'closed'
+            || (request.resource.data.status == 'waiting' && resource.data.status == 'waiting')
+            || (request.resource.data.status == 'playing' && resource.data.expiresAt > request.time
+              && request.resource.data.members.size() >= 2 && request.resource.data.revision == resource.data.revision + 1
+              && stateSchema(request.resource.data.state,request.resource.data.members.size()))))
+      );
+      allow delete: if false;
+      match /authority/{docId} {
+        allow get: if host(id);
+        allow create, update: if host(id) && docId == 'state' && request.resource.data.keys().hasOnly(['protocol','matchId','round','target','block','scores','board','counts','stockCount','turn','passes','winner','award','finished','opening','hands','stock']);
+        allow list, delete: if false;
+      }
+      match /hands/{uid} {
+        allow get: if member(id) && (uid == request.auth.uid || host(id));
+        allow create, update: if host(id) && uid in roomData(id).members
+          && request.resource.data.keys().hasAll(['revision','tiles']) && request.resource.data.keys().hasOnly(['revision','tiles'])
+          && request.resource.data.tiles is list && request.resource.data.tiles.size() <= 28
+          && request.resource.data.revision == getAfter(/databases/$(database)/documents/rooms/$(id)).data.revision;
+        allow list, delete: if false;
+      }
+      match /actions/{uid} {
+        allow get: if member(id) && (uid == request.auth.uid || host(id));
+        allow list: if host(id);
+        allow create: if member(id) && uid == request.auth.uid && roomData(id).status == 'playing' && roomData(id).expiresAt > request.time
+          && request.resource.data.keys().hasAll(['type','tileId','left','revision','createdAt'])
+          && request.resource.data.keys().hasOnly(['type','tileId','left','revision','createdAt'])
+          && request.resource.data.revision == roomData(id).revision && request.resource.data.createdAt == request.time
+          && request.resource.data.tileId is int && request.resource.data.left is bool
+          && ((request.resource.data.type in ['play','draw'] && roomData(id).members[roomData(id).state.turn] == uid && !roomData(id).state.finished)
+            || (request.resource.data.type in ['next','rematch'] && roomData(id).host == uid && roomData(id).state.finished));
+        allow update: if false;
+        allow delete: if host(id);
+      }
+      match /presence/{uid} {
+        allow get, list: if member(id);
+        allow create, update: if member(id) && uid == request.auth.uid
+          && request.resource.data.keys().hasAll(['seenAt','left']) && request.resource.data.keys().hasOnly(['seenAt','left'])
+          && request.resource.data.seenAt == request.time && request.resource.data.left is bool;
+        allow delete: if false;
+      }
+    }
+    function acceptedFriends(a,b) {
+      return (exists(/databases/$(database)/documents/friendRequests/$(a + '_' + b))
+          && getAfter(/databases/$(database)/documents/friendRequests/$(a + '_' + b)).data.status == 'accepted')
+        || (exists(/databases/$(database)/documents/friendRequests/$(b + '_' + a))
+          && getAfter(/databases/$(database)/documents/friendRequests/$(b + '_' + a)).data.status == 'accepted');
+    }
+    match /friendRequests/{id} {
+      allow get, list: if player() && (resource.data.fromUid == request.auth.uid || resource.data.toUid == request.auth.uid);
+      allow create: if registered() && request.resource.data.keys().hasAll(['fromUid','toUid','fromName','fromAvatar','status','createdAt','updatedAt'])
+        && request.resource.data.keys().hasOnly(['fromUid','toUid','fromName','fromAvatar','status','createdAt','updatedAt'])
+        && request.resource.data.fromUid == request.auth.uid && request.resource.data.toUid is string && request.resource.data.toUid != request.auth.uid
+        && id == request.auth.uid + '_' + request.resource.data.toUid
+        && exists(/databases/$(database)/documents/profiles/$(request.resource.data.toUid))
+        && request.resource.data.fromName == get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.username
+        && request.resource.data.fromAvatar == get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.avatarId
+        && request.resource.data.status == 'pending' && request.resource.data.createdAt == request.time && request.resource.data.updatedAt == request.time;
+      allow update: if player() && request.auth.uid == resource.data.toUid && resource.data.status == 'pending'
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','updatedAt'])
+        && request.resource.data.status == 'accepted' && request.resource.data.updatedAt == request.time;
+      allow delete: if player() && resource.data.status == 'pending' && request.auth.uid in [resource.data.fromUid,resource.data.toUid];
+    }
+    match /friends/{owner}/items/{peer} {
+      allow get, list: if player() && request.auth.uid == owner;
+      allow create: if registered() && request.auth.uid in [owner,peer] && owner != peer && acceptedFriends(owner,peer)
+        && request.resource.data.keys().hasAll(['uid','username','avatarId','createdAt'])
+        && request.resource.data.keys().hasOnly(['uid','username','avatarId','createdAt'])
+        && request.resource.data.uid == peer && request.resource.data.createdAt == request.time
+        && request.resource.data.username == get(/databases/$(database)/documents/profiles/$(peer)).data.username
+        && request.resource.data.avatarId == get(/databases/$(database)/documents/profiles/$(peer)).data.avatarId;
+      allow update, delete: if false;
+    }
+    match /invites/{recipient}/items/{code} {
+      function validInvitation() {
+        let d = request.resource.data;
+        let r = get(/databases/$(database)/documents/rooms/$(code)).data;
+        return d.keys().hasAll(['fromUid','fromName','roomId','createdAt','expiresAt'])
+          && d.keys().hasOnly(['fromUid','fromName','roomId','createdAt','expiresAt'])
+          && d.fromUid == request.auth.uid && d.roomId == code && recipient != request.auth.uid
+          && r.host == request.auth.uid && r.status == 'waiting' && r.expiresAt > request.time
+          && r.members.size() < r.capacity && !(recipient in r.members)
+          && exists(/databases/$(database)/documents/friends/$(request.auth.uid)/items/$(recipient))
+          && exists(/databases/$(database)/documents/friends/$(recipient)/items/$(request.auth.uid))
+          && d.fromName == get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.username
+          && d.createdAt == request.time && d.expiresAt > request.time && d.expiresAt <= request.time + duration.value(11,'m');
+      }
+      allow get: if player() && (request.auth.uid == recipient || request.auth.uid == resource.data.fromUid);
+      allow list: if player() && request.auth.uid == recipient && request.query.limit <= 30;
+      allow create: if registered() && validInvitation();
+      allow update: if registered() && resource.data.fromUid == request.auth.uid && validInvitation();
+      allow delete: if player() && (request.auth.uid == recipient || request.auth.uid == resource.data.fromUid);
+    }
+
+    // iOS rooms. Kept separate from Android /rooms because the two clients
+    // currently serialize game state with different protocols.
+    function iosSignedIn() {
+      return request.auth != null;
+    }
+    function iosRoomSchema(d) {
+      return d.keys().hasAll(['code','hostID','playerIDs','avatarIndices','playerNames','maxPlayers','isPrivate','status','createdAt'])
+        && d.keys().hasOnly(['code','hostID','playerIDs','avatarIndices','playerNames','maxPlayers','isPrivate','status','createdAt','sessionData','updatedAt'])
+        && d.code is string && d.code.matches('[A-HJ-NP-Z2-9]{6}')
+        && d.hostID is string && d.playerIDs is list && d.avatarIndices is list && d.playerNames is list
+        && d.playerIDs.size() >= 1 && d.playerIDs.size() <= d.maxPlayers
+        && d.playerIDs.toSet().size() == d.playerIDs.size()
+        && d.playerIDs[0] == d.hostID
+        && d.avatarIndices.size() == d.playerIDs.size()
+        && d.playerNames.size() == d.playerIDs.size()
+        && d.maxPlayers is int && d.maxPlayers >= 2 && d.maxPlayers <= 4
+        && d.isPrivate is bool && d.status in ['waiting','playing']
+        && d.createdAt is timestamp
+        && (!('sessionData' in d) || (d.sessionData is string && d.sessionData.size() <= 100000))
+        && (!('updatedAt' in d) || d.updatedAt is timestamp);
+    }
+    function iosRoomMember(d) {
+      return iosSignedIn() && request.auth.uid in d.playerIDs;
+    }
+    match /dominoRooms/{code} {
+      allow get: if iosSignedIn();
+      allow list: if iosSignedIn() && request.query.limit <= 20;
+      allow create: if iosSignedIn() && code.matches('[A-HJ-NP-Z2-9]{6}')
+        && iosRoomSchema(request.resource.data)
+        && request.resource.data.code == code
+        && request.resource.data.hostID == request.auth.uid
+        && request.resource.data.playerIDs == [request.auth.uid]
+        && request.resource.data.avatarIndices.size() == 1
+        && request.resource.data.playerNames.size() == 1
+        && request.resource.data.status == 'waiting'
+        && request.resource.data.createdAt == request.time
+        && !('sessionData' in request.resource.data);
+      allow update: if iosRoomSchema(request.resource.data) && (
+        // A new player may only append their own identity and avatar.
+        (iosSignedIn() && resource.data.status == 'waiting'
+          && !(request.auth.uid in resource.data.playerIDs)
+          && resource.data.playerIDs.size() < resource.data.maxPlayers
+          && request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(['playerIDs','avatarIndices','playerNames','status','sessionData'])
+          && request.resource.data.playerIDs == resource.data.playerIDs.concat([request.auth.uid])
+          && request.resource.data.avatarIndices.size() == resource.data.avatarIndices.size() + 1
+          && request.resource.data.playerNames.size() == resource.data.playerNames.size() + 1
+          && request.resource.data.maxPlayers == resource.data.maxPlayers
+          && request.resource.data.hostID == resource.data.hostID
+          && request.resource.data.code == resource.data.code
+          && request.resource.data.isPrivate == resource.data.isPrivate
+          && ((request.resource.data.playerIDs.size() < resource.data.maxPlayers
+              && request.resource.data.status == 'waiting'
+              && !('sessionData' in request.resource.data))
+            || (request.resource.data.playerIDs.size() == resource.data.maxPlayers
+              && request.resource.data.status == 'playing'
+              && request.resource.data.sessionData is string)))
+        ||
+        // During a turn-based game, only a room member may replace game state.
+        (iosRoomMember(resource.data) && resource.data.status == 'playing'
+          && request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(['sessionData','updatedAt'])
+          && request.resource.data.playerIDs == resource.data.playerIDs
+          && request.resource.data.avatarIndices == resource.data.avatarIndices
+          && request.resource.data.playerNames == resource.data.playerNames
+          && request.resource.data.status == resource.data.status
+          && request.resource.data.sessionData is string
+          && request.resource.data.updatedAt == request.time)
+      );
+      allow delete: if false;
+    }
+
+    // iOS profiles and one-way friend lists.
+    function iosUserSchema(d) {
+      return d.keys().hasAll(['displayName','friendCode','avatarIndex','providerIDs','updatedAt'])
+        && d.keys().hasOnly(['displayName','friendCode','avatarIndex','providerIDs','friendIDs','updatedAt'])
+        && d.displayName is string && d.displayName.size() >= 1 && d.displayName.size() <= 24
+        && d.friendCode is string && d.friendCode.matches('[A-F0-9]{8}')
+        && d.avatarIndex is int && d.avatarIndex >= 0 && d.avatarIndex < 50
+        && d.providerIDs is list && d.providerIDs.size() <= 4
+        && (!('friendIDs' in d) || (d.friendIDs is list
+          && d.friendIDs.size() <= 200
+          && d.friendIDs.toSet().size() == d.friendIDs.size()))
+        && d.updatedAt == request.time;
+    }
+    match /users/{uid} {
+      allow get: if iosSignedIn();
+      allow list: if iosSignedIn() && request.query.limit <= 1;
+      allow create, update: if iosSignedIn() && request.auth.uid == uid
+        && iosUserSchema(request.resource.data);
+      allow delete: if iosSignedIn() && request.auth.uid == uid;
+
+      match /invites/{code} {
+        allow get, list: if iosSignedIn() && request.auth.uid == uid;
+        allow create, update: if iosSignedIn()
+          && code.matches('[A-HJ-NP-Z2-9]{6}')
+          && request.resource.data.keys().hasAll(['roomCode','senderID','senderName','createdAt'])
+          && request.resource.data.keys().hasOnly(['roomCode','senderID','senderName','createdAt'])
+          && request.resource.data.roomCode == code
+          && request.resource.data.senderID == request.auth.uid
+          && request.resource.data.senderName is string
+          && request.resource.data.senderName.size() >= 1
+          && request.resource.data.senderName.size() <= 24
+          && request.resource.data.createdAt == request.time
+          && uid in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.friendIDs
+          && get(/databases/$(database)/documents/dominoRooms/$(code)).data.status == 'waiting'
+          && request.auth.uid in get(/databases/$(database)/documents/dominoRooms/$(code)).data.playerIDs;
+        allow delete: if iosSignedIn() && request.auth.uid == uid;
+      }
+    }
+
+    match /{document=**} { allow read, write: if false; }
+  }
+}
