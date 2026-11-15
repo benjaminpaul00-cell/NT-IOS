@@ -19,6 +19,7 @@ struct RootView: View {
         .tint(Color(red: 0.96, green: 0.72, blue: 0.22))
         .onAppear {
             updateOrientation(for: model.route)
+            AdMobService.shared.start()
         }
         .onChange(of: model.route) { _, route in
             updateOrientation(for: route)
