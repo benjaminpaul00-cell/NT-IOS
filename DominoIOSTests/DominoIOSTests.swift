@@ -86,7 +86,8 @@ struct DominoGameTests {
             didAwardRound: false
         )
 
-        #expect(session.play(tileID: winningTile.id, on: .left))
+        let played = session.play(tileID: winningTile.id, on: .left)
+        #expect(played)
         #expect(session.scores == [3, 0])
 
         session.settleRound()
@@ -110,8 +111,10 @@ struct DominoGameTests {
             openingTileID: DominoTile(first: 6, second: 6).id
         )
 
-        #expect(game.drawOrPass())
-        #expect(game.drawOrPass())
+        let firstPass = game.drawOrPass()
+        let secondPass = game.drawOrPass()
+        #expect(firstPass)
+        #expect(secondPass)
         #expect(game.isFinished)
         #expect(game.winner == 0)
         #expect(game.award == 2)
@@ -142,5 +145,36 @@ private struct SeededGenerator: RandomNumberGenerator {
     mutating func next() -> UInt64 {
         state = state &* 6_364_136_223_846_793_005 &+ 1
         return state
+    }
+}
+
+
+struct AdMobCadenceTests {
+    @Test @MainActor func interstitialBecomesDueOnThirdUniqueRound() throws {
+        let suite = "AdMobCadenceTests.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let service = AdMobService(defaults: defaults)
+        service.recordCompletedGame(roundID: "match:1")
+        service.recordCompletedGame(roundID: "match:2")
+        #expect(!defaults.bool(forKey: "admob.pending-interstitial"))
+        service.recordCompletedGame(roundID: "match:2")
+        #expect(defaults.integer(forKey: "admob.completed-games") == 2)
+        service.recordCompletedGame(roundID: "match:3")
+        #expect(defaults.integer(forKey: "admob.completed-games") == 3)
+        #expect(defaults.bool(forKey: "admob.pending-interstitial"))
+    }
+
+    @Test @MainActor func pendingAdAndDeduplicationSurviveRestartWithoutSDK() throws {
+        let suite = "AdMobCadenceTests.\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suite))
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let first = AdMobService(defaults: defaults)
+        for round in 1...3 { first.recordCompletedGame(roundID: "match:\(round)") }
+        let restarted = AdMobService(defaults: defaults)
+        restarted.recordCompletedGame(roundID: "match:3")
+        restarted.presentPendingInterstitialIfNeeded()
+        #expect(defaults.integer(forKey: "admob.completed-games") == 3)
+        #expect(defaults.bool(forKey: "admob.pending-interstitial"))
     }
 }
