@@ -1,0 +1,14 @@
+# Local Firebase configuration
+GoogleService-Info.plist
+
+# Xcode user-specific data
+xcuserdata/
+*.xcuserstate
+
+# Build products
+DerivedData/
+.build/
+build/
+
+# macOS metadata
+.DS_Store
