@@ -1,6 +1,7 @@
 import GoogleMobileAds
 import SwiftUI
 import UIKit
+import OSLog
 import UserMessagingPlatform
 
 @MainActor
@@ -24,9 +25,15 @@ final class AdMobService: NSObject, FullScreenContentDelegate {
         static let cadenceVersion = "admob.cadence-version"
     }
 
-    static let adsBecameAvailable = Notification.Name("AdMobService.adsBecameAvailable")
+    nonisolated static let adsBecameAvailable = Notification.Name("AdMobService.adsBecameAvailable")
 
+    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "DominoIOS", category: "AdMob")
+    private var startupRetryTask: Task<Void, Never>?
+    private var isStarting = false
+    private var isPresentingInterstitial = false
     private var interstitialAd: InterstitialAd?
+    private var sdkReady = false
+    private var presentedInterstitialAd: InterstitialAd?
     private var didStartAds = false
     private var isLoadingInterstitial = false
     private var isInterstitialPresentationPending = false
@@ -37,22 +44,31 @@ final class AdMobService: NSObject, FullScreenContentDelegate {
         ConsentInformation.shared.canRequestAds
     }
 
-    private override init() {
+    private override convenience init() {
+        self.init(defaults: .standard)
+    }
+
+    private let defaults: UserDefaults
+
+    init(defaults: UserDefaults) {
+        self.defaults = defaults
         super.init()
-        let defaults = UserDefaults.standard
         if defaults.integer(forKey: StorageKey.cadenceVersion) < 3 {
             defaults.set(0, forKey: StorageKey.completedGames)
             defaults.removeObject(forKey: StorageKey.completedRoundIDs)
             defaults.set(false, forKey: StorageKey.pendingInterstitial)
             defaults.set(3, forKey: StorageKey.cadenceVersion)
         }
+        isInterstitialPresentationPending = defaults.bool(forKey: StorageKey.pendingInterstitial)
         foregroundObserver = NotificationCenter.default.addObserver(
             forName: UIApplication.didBecomeActiveNotification,
             object: nil,
             queue: .main
         ) { [weak self] _ in
             Task { @MainActor in
-                guard let self, self.canRequestAds else { return }
+                guard let self else { return }
+                if !self.didStartAds { self.start(); return }
+                guard self.canRequestAds else { return }
                 if self.isInterstitialPresentationPending {
                     self.presentInterstitialIfReady()
                 } else if self.interstitialAd == nil {
@@ -63,23 +79,45 @@ final class AdMobService: NSObject, FullScreenContentDelegate {
     }
 
     func start() {
+        guard !isStarting, !didStartAds else { return }
+        guard let presenter = topViewController(), presenter.viewIfLoaded?.window != nil else {
+            scheduleStartupRetry()
+            return
+        }
+        isStarting = true
         let parameters = RequestParameters()
-        ConsentInformation.shared.requestConsentInfoUpdate(with: parameters) { [weak self] _ in
+        ConsentInformation.shared.requestConsentInfoUpdate(with: parameters) { [weak self] error in
             Task { @MainActor in
+                guard let self else { return }
+                defer { self.isStarting = false }
+                if let error { self.logger.error("Consent update: \(error.localizedDescription, privacy: .public)") }
                 do {
-                    try await ConsentForm.loadAndPresentIfRequired(from: nil)
+                    try await ConsentForm.loadAndPresentIfRequired(from: presenter)
                 } catch {
-                    // A previous valid consent choice can still permit ads after a form error.
+                    self.logger.error("Consent form: \(error.localizedDescription, privacy: .public)")
                 }
 
-                guard ConsentInformation.shared.canRequestAds else { return }
-                self?.startAdsIfNeeded()
+                guard ConsentInformation.shared.canRequestAds else {
+                    self.logger.notice("Ads blocked by consent state")
+                    self.scheduleStartupRetry()
+                    return
+                }
+                self.startAdsIfNeeded()
             }
         }
     }
 
+    private func scheduleStartupRetry() {
+        guard startupRetryTask == nil else { return }
+        startupRetryTask = Task { @MainActor [weak self] in
+            do { try await Task.sleep(for: .seconds(30)) } catch { return }
+            guard let self else { return }
+            self.startupRetryTask = nil
+            self.start()
+        }
+    }
+
     func recordCompletedGame(roundID: String) {
-        let defaults = UserDefaults.standard
         var completedRoundIDs = Set(defaults.stringArray(forKey: StorageKey.completedRoundIDs) ?? [])
         guard completedRoundIDs.insert(roundID).inserted else { return }
         if completedRoundIDs.count > 100 {
@@ -88,6 +126,7 @@ final class AdMobService: NSObject, FullScreenContentDelegate {
         defaults.set(Array(completedRoundIDs), forKey: StorageKey.completedRoundIDs)
         let completedGames = defaults.integer(forKey: StorageKey.completedGames) + 1
         defaults.set(completedGames, forKey: StorageKey.completedGames)
+        logger.info("Completed rounds: \(completedGames); interstitial due: \(completedGames.isMultiple(of: 3))")
 
         guard completedGames.isMultiple(of: 3) else { return }
         isInterstitialPresentationPending = true
@@ -112,25 +151,32 @@ final class AdMobService: NSObject, FullScreenContentDelegate {
         }
     }
 
+    var bannersReady: Bool { sdkReady && canRequestAds }
+
     func loadBanner(_ banner: BannerView) {
-        guard canRequestAds else { return }
+        guard bannersReady else { return }
         banner.adUnitID = AdUnit.banner
         banner.load(Request())
     }
 
     private func startAdsIfNeeded() {
         guard !didStartAds else { return }
+        startupRetryTask?.cancel()
+        startupRetryTask = nil
         didStartAds = true
-        isInterstitialPresentationPending = UserDefaults.standard.bool(forKey: StorageKey.pendingInterstitial)
-        MobileAds.shared.start()
-        NotificationCenter.default.post(name: Self.adsBecameAvailable, object: nil)
-
-        Task {
-            await loadInterstitial()
+        isInterstitialPresentationPending = defaults.bool(forKey: StorageKey.pendingInterstitial)
+        MobileAds.shared.start { [weak self] _ in
+            Task { @MainActor in
+                guard let self else { return }
+                self.sdkReady = true
+                NotificationCenter.default.post(name: Self.adsBecameAvailable, object: nil)
+                await self.loadInterstitial()
+            }
         }
     }
 
     private func loadInterstitial() async {
+        guard sdkReady, canRequestAds, !isPresentingInterstitial else { return }
         guard !isLoadingInterstitial, interstitialAd == nil else {
             if isInterstitialPresentationPending, interstitialAd != nil {
                 presentInterstitialIfReady()
@@ -151,12 +197,14 @@ final class AdMobService: NSObject, FullScreenContentDelegate {
                 presentInterstitialIfReady()
             }
         } catch {
+            logger.error("Interstitial load: \(error.localizedDescription, privacy: .public)")
             interstitialAd = nil
             scheduleInterstitialRetry()
         }
     }
 
     private func presentInterstitialIfReady() {
+        guard isInterstitialPresentationPending, !isPresentingInterstitial, canRequestAds else { return }
         guard let interstitialAd else {
             if canRequestAds {
                 Task {
@@ -166,8 +214,24 @@ final class AdMobService: NSObject, FullScreenContentDelegate {
             return
         }
 
-        guard let presenter = topViewController() else { return }
-
+        guard UIApplication.shared.applicationState == .active,
+              let presenter = topViewController(),
+              presenter.viewIfLoaded?.window != nil,
+              !presenter.isBeingPresented, !presenter.isBeingDismissed,
+              !(presenter is UIAlertController) else {
+            scheduleInterstitialRetry()
+            return
+        }
+        do {
+            try interstitialAd.canPresent(from: presenter)
+        } catch {
+            logger.error("Interstitial not ready: \(error.localizedDescription, privacy: .public)")
+            self.interstitialAd = nil
+            scheduleInterstitialRetry()
+            return
+        }
+        isPresentingInterstitial = true
+        presentedInterstitialAd = interstitialAd
         self.interstitialAd = nil
         interstitialAd.present(from: presenter)
     }
@@ -203,6 +267,8 @@ final class AdMobService: NSObject, FullScreenContentDelegate {
     }
 
     func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
+        isPresentingInterstitial = false
+        presentedInterstitialAd = nil
         Task {
             await loadInterstitial()
         }
@@ -210,18 +276,19 @@ final class AdMobService: NSObject, FullScreenContentDelegate {
 
     func adWillPresentFullScreenContent(_ ad: FullScreenPresentingAd) {
         isInterstitialPresentationPending = false
-        UserDefaults.standard.set(false, forKey: StorageKey.pendingInterstitial)
+        defaults.set(false, forKey: StorageKey.pendingInterstitial)
     }
 
     func ad(
         _ ad: FullScreenPresentingAd,
         didFailToPresentFullScreenContentWithError error: Error
     ) {
+        isPresentingInterstitial = false
+        presentedInterstitialAd = nil
+        logger.error("Interstitial presentation: \(error.localizedDescription, privacy: .public)")
         isInterstitialPresentationPending = true
-        UserDefaults.standard.set(true, forKey: StorageKey.pendingInterstitial)
-        Task {
-            await loadInterstitial()
-        }
+        defaults.set(true, forKey: StorageKey.pendingInterstitial)
+        scheduleInterstitialRetry()
     }
 }
 
@@ -229,11 +296,8 @@ struct AdMobBannerView: View {
     let width: CGFloat
 
     var body: some View {
-        let measuredSize = currentOrientationAnchoredAdaptiveBanner(width: width)
-        let backingRatio = max(1, measuredSize.size.width / max(1, width))
-        let adSize = currentOrientationAnchoredAdaptiveBanner(width: width / backingRatio)
-        BannerViewContainer(adSize: adSize)
-            .frame(width: width, height: 63)
+        BannerViewContainer(adSize: AdSizeBanner)
+            .frame(width: width, height: AdSizeBanner.size.height)
     }
 }
 
@@ -247,18 +311,19 @@ private struct BannerViewContainer: UIViewRepresentable {
     func makeUIView(context: Context) -> BannerHostView {
         let host = BannerHostView(adSize: adSize)
         context.coordinator.banner = host.banner
-        AdMobService.shared.loadBanner(host.banner)
+        host.loadIfReady()
         return host
     }
 
     func updateUIView(_ host: BannerHostView, context: Context) {
+        host.loadIfReady()
         guard host.adSize.size != adSize.size else {
             host.setNeedsLayout()
             return
         }
         host.adSize = adSize
         host.banner.adSize = adSize
-        AdMobService.shared.loadBanner(host.banner)
+        host.loadIfReady()
         host.setNeedsLayout()
     }
 
@@ -274,7 +339,7 @@ private struct BannerViewContainer: UIViewRepresentable {
             ) { [weak self] _ in
                 Task { @MainActor in
                     guard let banner = self?.banner else { return }
-                    AdMobService.shared.loadBanner(banner)
+                    (banner.superview as? BannerHostView)?.loadIfReady()
                 }
             }
         }
@@ -287,7 +352,11 @@ private struct BannerViewContainer: UIViewRepresentable {
     }
 }
 
-private final class BannerHostView: UIView {
+private final class BannerHostView: UIView, BannerViewDelegate {
+    private var nextRetryDate = Date.distantPast
+    private var requested = false
+    private var retryTask: Task<Void, Never>?
+    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "DominoIOS", category: "AdMobBanner")
     let banner: BannerView
     var adSize: AdSize
 
@@ -296,7 +365,9 @@ private final class BannerHostView: UIView {
         banner = BannerView(adSize: adSize)
         super.init(frame: .zero)
         clipsToBounds = true
-        backgroundColor = .white
+        backgroundColor = .clear
+        banner.delegate = self
+        banner.isHidden = true
         addSubview(banner)
     }
 
@@ -310,13 +381,47 @@ private final class BannerHostView: UIView {
         let naturalSize = adSize.size
         guard naturalSize.width > 0, naturalSize.height > 0 else { return }
 
-        let factor = min(
-            bounds.width / naturalSize.width,
-            bounds.height / naturalSize.height
-        )
-        banner.transform = .identity
         banner.bounds = CGRect(origin: .zero, size: naturalSize)
         banner.center = CGPoint(x: bounds.midX, y: bounds.midY)
-        banner.transform = CGAffineTransform(scaleX: factor, y: factor)
+    }
+
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        if window != nil { loadIfReady() }
+        else { retryTask?.cancel(); retryTask = nil }
+    }
+
+    func loadIfReady() {
+        guard !requested, Date() >= nextRetryDate, window != nil, AdMobService.shared.bannersReady else { return }
+        var responder: UIResponder? = self
+        while let current = responder {
+            if let controller = current as? UIViewController {
+                banner.rootViewController = controller
+                break
+            }
+            responder = current.next
+        }
+        guard banner.rootViewController != nil else { return }
+        requested = true
+        AdMobService.shared.loadBanner(banner)
+    }
+
+    func bannerViewDidReceiveAd(_ bannerView: BannerView) {
+        bannerView.isHidden = false
+        retryTask?.cancel()
+        retryTask = nil
+        logger.info("Banner loaded")
+    }
+
+    func bannerView(_ bannerView: BannerView, didFailToReceiveAdWithError error: Error) {
+        bannerView.isHidden = true
+        logger.error("Banner load: \(error.localizedDescription, privacy: .public)")
+        requested = false
+        nextRetryDate = Date().addingTimeInterval(30)
+        retryTask?.cancel()
+        retryTask = Task { @MainActor [weak self] in
+            do { try await Task.sleep(for: .seconds(30)) } catch { return }
+            self?.loadIfReady()
+        }
     }
 }
